@@ -1,11 +1,12 @@
 ---
 import Layout from '$lib/layouts/Layout.astro';
-import "$lib/styles/app.css";
+import { HomeWidget } from "$lib/components/custom"
 ---
 
 <Layout title="Comidas · Chicos del Barrio">
-	<main>
-    Content here
+	<main id="home" class="flex h-full flex-col items-center justify-center gap-6 overflow-auto">
+    <h1>Chicos del barrio</h1>
+    <HomeWidget client:only />
   </main>
 </Layout>
 
