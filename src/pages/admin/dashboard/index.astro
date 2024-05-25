@@ -1,0 +1,10 @@
+---
+import AdminLayout from '$lib/layouts/AdminLayout.astro';
+import { AdminDashboard } from "$lib/components/custom"
+---
+
+<AdminLayout title="Admin · Chicos del Barrio">
+  <main id="admin-home">
+    <AdminDashboard client:only="svelte" />
+  </main>
+</AdminLayout>

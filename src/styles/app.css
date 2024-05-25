@@ -75,6 +75,6 @@
   }
 
   a {
-    @apply text-blue-600 underline;
+    @apply no-underline;
   }
 }

@@ -1,0 +1,33 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+import "$lib/styles/app.css";
+---
+
+<!doctype html>
+
+<html lang="es" class="h-full">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Gestiona las ordenes hechas por vecinos." />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+
+    <!-- TODO: change favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<title>{title}</title>
+	</head>
+
+	<body class="min-h-dvh h-full p-8">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+  /* styles */
+</style>

@@ -1,0 +1,10 @@
+---
+import Layout from "$lib/layouts/Layout.astro"
+import { AdminLogin } from "$lib/components/custom"
+---
+
+<Layout title="Inicia sesión · Admin Comidas Chicos del Barrio">
+  <main id="admin-login" class="flex h-full items-center justify-center">
+    <AdminLogin client:only="svelte" />
+  </main>
+</Layout>
