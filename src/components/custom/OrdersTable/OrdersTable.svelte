@@ -17,7 +17,7 @@
     addTableFilter,
   } from "svelte-headless-table/plugins";
 
-  import type { Task } from "./schemas.js";
+  import type { Task } from "./schemas.ts";
 
   import {
     DataTableCheckbox,
