@@ -7,7 +7,7 @@
   import { FoodView } from "$lib/components/custom";
 </script>
 
-<Tabs.Root value="order" class="w-[400px]">
+<Tabs.Root value="order" class="w-full max-w-[400px]">
   <Tabs.List class="grid w-full grid-cols-2">
     <Tabs.Trigger value="order">Ordenar</Tabs.Trigger>
     <Tabs.Trigger value="consult">Consultar</Tabs.Trigger>

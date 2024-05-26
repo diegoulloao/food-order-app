@@ -5,7 +5,7 @@
   import { Label } from "$lib/components/ui/label/index.js";
 </script>
 
-<Card.Root class="w-full max-w-sm">
+<Card.Root class="w-full max-w-[400px]">
   <Card.Header>
     <Card.Title class="text-2xl">Administrador</Card.Title>
     <Card.Description
