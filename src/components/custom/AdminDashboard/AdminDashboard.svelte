@@ -24,7 +24,7 @@
   import orders from "$lib/data/orders.json";
 </script>
 
-<div class="flex min-h-screen w-full flex-col bg-muted/40">
+<div class="flex min-h-screen w-full flex-col">
   <aside
     class="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex"
   >
