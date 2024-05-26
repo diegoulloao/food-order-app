@@ -2,7 +2,6 @@
   import File from "lucide-svelte/icons/file";
   import Home from "lucide-svelte/icons/home";
   import LineChart from "lucide-svelte/icons/line-chart";
-  import ListFilter from "lucide-svelte/icons/list-filter";
   import Package from "lucide-svelte/icons/package";
   import Package2 from "lucide-svelte/icons/package-2";
   import PanelLeft from "lucide-svelte/icons/panel-left";
@@ -30,44 +29,20 @@
     class="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex"
   >
     <nav class="flex flex-col items-center gap-4 px-2 py-4">
-      <a
-        href="##"
-        class="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-      >
-        <Package2 class="h-4 w-4 transition-all group-hover:scale-110" />
-        <span class="sr-only">Acme Inc</span>
-      </a>
-
       <Tooltip.Root>
         <Tooltip.Trigger asChild let:builder>
           <a
             href="##"
-            class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+            class="group flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             use:builder.action
             {...builder}
           >
             <Home class="h-5 w-5" />
-            <span class="sr-only">Dashboard</span>
+            <span class="sr-only">Inicio</span>
           </a>
         </Tooltip.Trigger>
 
-        <Tooltip.Content side="right">Dashboard</Tooltip.Content>
-      </Tooltip.Root>
-
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild let:builder>
-          <a
-            href="##"
-            class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8"
-            use:builder.action
-            {...builder}
-          >
-            <ShoppingCart class="h-5 w-5" />
-            <span class="sr-only">Orders</span>
-          </a>
-        </Tooltip.Trigger>
-
-        <Tooltip.Content side="right">Orders</Tooltip.Content>
+        <Tooltip.Content side="right">Inicio</Tooltip.Content>
       </Tooltip.Root>
 
       <Tooltip.Root>
@@ -78,15 +53,17 @@
             use:builder.action
             {...builder}
           >
-            <Package class="h-5 w-5" />
-            <span class="sr-only">Products</span>
+            <ShoppingCart
+              class="h-5 w-5 transition-all group-hover:scale-110"
+            />
+            <span class="sr-only">Pedidos</span>
           </a>
         </Tooltip.Trigger>
 
-        <Tooltip.Content side="right">Products</Tooltip.Content>
+        <Tooltip.Content side="right">Pedidos</Tooltip.Content>
       </Tooltip.Root>
 
-      <Tooltip.Root>
+      <!-- <Tooltip.Root>
         <Tooltip.Trigger asChild let:builder>
           <a
             href="##"
@@ -95,12 +72,12 @@
             {...builder}
           >
             <UsersRound class="h-5 w-5" />
-            <span class="sr-only">Customers</span>
+            <span class="sr-only">Usuarios</span>
           </a>
         </Tooltip.Trigger>
 
-        <Tooltip.Content side="right">Customers</Tooltip.Content>
-      </Tooltip.Root>
+        <Tooltip.Content side="right">Usuarios</Tooltip.Content>
+      </Tooltip.Root> -->
 
       <Tooltip.Root>
         <Tooltip.Trigger asChild let:builder>
@@ -111,11 +88,11 @@
             {...builder}
           >
             <LineChart class="h-5 w-5" />
-            <span class="sr-only">Analytics</span>
+            <span class="sr-only">Estadísticas</span>
           </a>
         </Tooltip.Trigger>
 
-        <Tooltip.Content side="right">Analytics</Tooltip.Content>
+        <Tooltip.Content side="right">Estadísticas</Tooltip.Content>
       </Tooltip.Root>
     </nav>
 
@@ -207,7 +184,7 @@
       <Breadcrumb.Root class="hidden md:flex">
         <Breadcrumb.List>
           <Breadcrumb.Item>
-            <Breadcrumb.Link href="##">Panel</Breadcrumb.Link>
+            <Breadcrumb.Link href="##">Panel de Administración</Breadcrumb.Link>
           </Breadcrumb.Item>
 
           <Breadcrumb.Separator />
@@ -227,7 +204,7 @@
             builders={[builder]}
             variant="outline"
             size="icon"
-            class="overflow-hidden rounded-full"
+            class="h-8 w-8 overflow-hidden rounded-full"
           >
             <img
               src="/img/placeholder-user.jpg"
@@ -240,12 +217,9 @@
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Content align="end">
-          <DropdownMenu.Label>My Account</DropdownMenu.Label>
+          <DropdownMenu.Label>Cuenta</DropdownMenu.Label>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item>Settings</DropdownMenu.Item>
-          <DropdownMenu.Item>Support</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item>Logout</DropdownMenu.Item>
+          <DropdownMenu.Item>Cerrar sesión</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </header>
@@ -256,43 +230,17 @@
           <!-- TODO: add something -->
 
           <div class="ml-auto flex items-center gap-2">
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger asChild let:builder>
-                <Button
-                  builders={[builder]}
-                  variant="outline"
-                  size="sm"
-                  class="h-7 gap-1"
-                >
-                  <ListFilter class="h-3.5 w-3.5" />
-                  <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Filter
-                  </span>
-                </Button>
-              </DropdownMenu.Trigger>
-
-              <DropdownMenu.Content align="end">
-                <DropdownMenu.Label>Filter by</DropdownMenu.Label>
-                <DropdownMenu.Separator />
-                <DropdownMenu.CheckboxItem checked>
-                  Active
-                </DropdownMenu.CheckboxItem>
-                <DropdownMenu.CheckboxItem>Draft</DropdownMenu.CheckboxItem>
-                <DropdownMenu.CheckboxItem>Archived</DropdownMenu.CheckboxItem>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
-
             <Button size="sm" variant="outline" class="h-7 gap-1">
               <File class="h-3.5 w-3.5" />
               <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Export
+                Exportar
               </span>
             </Button>
 
             <Button size="sm" class="h-7 gap-1">
               <CirclePlus class="h-3.5 w-3.5" />
               <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Add Product
+                Añadir pedido
               </span>
             </Button>
           </div>
@@ -301,9 +249,11 @@
         <Tabs.Content value="all">
           <Card.Root>
             <Card.Header>
-              <Card.Title>Products</Card.Title>
+              <Card.Title>Pedidos</Card.Title>
+
               <Card.Description>
-                Manage your products and view their sales performance.
+                A continuación se listan todos los pedidos realizados hasta este
+                momento.
               </Card.Description>
             </Card.Header>
 

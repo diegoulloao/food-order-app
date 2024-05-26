@@ -20,17 +20,17 @@
 
 <div class="flex items-center justify-between px-2">
   <div class="flex-1 text-sm text-muted-foreground">
-    {Object.keys($selectedDataIds).length} of {$rows.length} row(s) selected.
+    {Object.keys($selectedDataIds).length} de {$rows.length} fila(s) seleccionadas.
   </div>
   <div class="flex items-center space-x-6 lg:space-x-8">
     <div class="flex items-center space-x-2">
-      <p class="text-sm font-medium">Rows per page</p>
+      <p class="text-sm font-medium">Pedidos por página</p>
       <Select.Root
         onSelectedChange={(selected) => pageSize.set(Number(selected?.value))}
         selected={{ value: 10, label: "10" }}
       >
         <Select.Trigger class="h-8 w-[70px]">
-          <Select.Value placeholder="Select page size" />
+          <Select.Value placeholder="Pedidos por página" />
         </Select.Trigger>
         <Select.Content>
           <Select.Item value="10">10</Select.Item>
@@ -42,7 +42,7 @@
       </Select.Root>
     </div>
     <div class="flex w-[100px] items-center justify-center text-sm font-medium">
-      Page {$pageIndex + 1} of {$pageCount}
+      Página {$pageIndex + 1} de {$pageCount}
     </div>
     <div class="flex items-center space-x-2">
       <Button
@@ -51,7 +51,7 @@
         on:click={() => ($pageIndex = 0)}
         disabled={!$hasPreviousPage}
       >
-        <span class="sr-only">Go to first page</span>
+        <span class="sr-only">Ir a primera página</span>
         <DoubleArrowLeft size={15} />
       </Button>
       <Button
@@ -60,7 +60,7 @@
         on:click={() => ($pageIndex = $pageIndex - 1)}
         disabled={!$hasPreviousPage}
       >
-        <span class="sr-only">Go to previous page</span>
+        <span class="sr-only">Página anterior</span>
         <ChevronLeft size={15} />
       </Button>
       <Button
@@ -69,7 +69,7 @@
         disabled={!$hasNextPage}
         on:click={() => ($pageIndex = $pageIndex + 1)}
       >
-        <span class="sr-only">Go to next page</span>
+        <span class="sr-only">Siguiente página</span>
         <ChevronRight size={15} />
       </Button>
       <Button
@@ -79,7 +79,7 @@
         on:click={() =>
           ($pageIndex = Math.ceil($rows.length / $pageRows.length) - 1)}
       >
-        <span class="sr-only">Go to last page</span>
+        <span class="sr-only">Última página</span>
         <DoubleArrowRight size={15} />
       </Button>
     </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
   import DotsHorizontal from "svelte-radix/DotsHorizontal.svelte";
-  import { labels } from "../data.js";
   import { type Task, taskSchema } from "../schemas.ts";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
@@ -24,19 +23,6 @@
     <DropdownMenu.Item>Edit</DropdownMenu.Item>
     <DropdownMenu.Item>Make a copy</DropdownMenu.Item>
     <DropdownMenu.Item>Favorite</DropdownMenu.Item>
-    <DropdownMenu.Separator />
-    <DropdownMenu.Sub>
-      <DropdownMenu.SubTrigger>Labels</DropdownMenu.SubTrigger>
-      <DropdownMenu.SubContent>
-        <DropdownMenu.RadioGroup value={task.label}>
-          {#each labels as label}
-            <DropdownMenu.RadioItem value={label.value}>
-              {label.label}
-            </DropdownMenu.RadioItem>
-          {/each}
-        </DropdownMenu.RadioGroup>
-      </DropdownMenu.SubContent>
-    </DropdownMenu.Sub>
     <DropdownMenu.Separator />
     <DropdownMenu.Item>
       Delete

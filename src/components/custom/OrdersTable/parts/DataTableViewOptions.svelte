@@ -30,11 +30,12 @@
       builders={[builder]}
     >
       <MixerHorizontal class="mr-2 h-4 w-4" />
-      View
+      Columnas
     </Button>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
-    <DropdownMenu.Label>Toggle columns</DropdownMenu.Label>
+    <DropdownMenu.Label>Mostrar columnas</DropdownMenu.Label>
+
     <DropdownMenu.Separator />
     {#each flatColumns as col}
       {#if hidableCols.includes(col.id)}

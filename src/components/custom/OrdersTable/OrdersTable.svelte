@@ -77,7 +77,7 @@
     table.column({
       accessor: "id",
       header: () => {
-        return "Task";
+        return "Pedido";
       },
       id: "task",
       plugins: {
@@ -87,22 +87,21 @@
       },
     }),
     table.column({
-      accessor: "title",
-      header: "Title",
+      accessor: "name",
+      header: "Nombre",
       id: "title",
       cell: ({ value, row }) => {
         if (row.isData()) {
           return createRender(DataTableTitleCell, {
             value,
-            labelValue: row.original.label,
           });
         }
         return value;
       },
     }),
     table.column({
-      accessor: "status",
-      header: "Status",
+      accessor: "rut",
+      header: "Rut",
       id: "status",
       cell: ({ value }) => {
         return createRender(DataTableStatusCell, {
@@ -127,12 +126,24 @@
       },
     }),
     table.column({
-      accessor: "priority",
+      accessor: "address",
+      header: () => {
+        return "Dirección";
+      },
+      id: "address",
+      plugins: {
+        sort: {
+          disable: true,
+        },
+      },
+    }),
+    table.column({
+      accessor: "amount",
       id: "priority",
-      header: "Priority",
+      header: "Cantidad",
       cell: ({ value }) => {
         return createRender(DataTablePriorityCell, {
-          value,
+          value: value.toString(),
         });
       },
       plugins: {
@@ -232,7 +243,7 @@
         {:else}
           <Table.Row>
             <Table.Cell colspan={columns.length} class="h-24 text-center">
-              No results.
+              Sin resultados.
             </Table.Cell>
           </Table.Row>
         {/if}

@@ -69,7 +69,7 @@
     <Command.Root>
       <Command.Input placeholder={title} />
       <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
+        <Command.Empty>Sin resultados.</Command.Empty>
         <Command.Group>
           {#each options as option}
             <!-- {@const Icon = option.icon} -->

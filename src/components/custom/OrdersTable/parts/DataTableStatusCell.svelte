@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { statuses } from "../data.js";
+  import { format as rutFormat } from "rut.js";
 
   export let value: string;
-  const status = statuses.find((status) => status.value === value);
+
   // TODO: fix icon
   // const Icon = status?.icon;
 </script>
 
-{#if status}
-  <div class="flex w-[100px] items-center">
-    <!-- {#if Icon}
+<div class="flex w-[100px] items-center">
+  <!-- {#if Icon}
       <Icon class="mr-2 h-4 w-4 text-muted-foreground" />
     {/if} -->
-    <span>{status.label}</span>
-  </div>
-{/if}
+  <span>{rutFormat(value)}</span>
+</div>

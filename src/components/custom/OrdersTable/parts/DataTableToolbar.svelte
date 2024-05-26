@@ -2,7 +2,7 @@
   import type { TableViewModel } from "svelte-headless-table";
   import Cross2 from "svelte-radix/Cross2.svelte";
   import type { Writable } from "svelte/store";
-  import { priorities, statuses } from "../data.js";
+  import { statuses } from "../data.js";
   import type { Task } from "../schemas.js";
   import { DataTableFacetedFilter, DataTableViewOptions } from "./";
   import Button from "$lib/components/ui/button/button.svelte";
@@ -50,7 +50,7 @@
 <div class="flex items-center justify-between">
   <div class="flex flex-1 items-center space-x-2">
     <Input
-      placeholder="Filter tasks..."
+      placeholder="Buscar por nombre o rut..."
       class="h-8 w-[150px] lg:w-[250px]"
       type="search"
       bind:value={$filterValue}
@@ -58,15 +58,9 @@
 
     <DataTableFacetedFilter
       bind:filterValues={$filterValues.status}
-      title="Status"
+      title="Estado"
       options={statuses}
       counts={counts.status}
-    />
-    <DataTableFacetedFilter
-      bind:filterValues={$filterValues.priority}
-      title="Priority"
-      options={priorities}
-      counts={counts.priority}
     />
     {#if showReset}
       <Button
@@ -78,7 +72,7 @@
         variant="ghost"
         class="h-8 px-2 lg:px-3"
       >
-        Reset
+        Limpiar
         <Cross2 class="ml-2 h-4 w-4" />
       </Button>
     {/if}
