@@ -4,6 +4,7 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
+  import { FoodView } from "$lib/components/custom";
 </script>
 
 <Tabs.Root value="order" class="w-[400px]">
@@ -17,7 +18,10 @@
       <Card.Header>
         <Card.Title>Ordenar</Card.Title>
         <Card.Description>
-          Completa los datos para ordenar tu comida!
+          <div class="flex flex-col space-y-5">
+            <p>Completa los datos para ordenar tu comida!</p>
+            <FoodView />
+          </div>
         </Card.Description>
       </Card.Header>
 
