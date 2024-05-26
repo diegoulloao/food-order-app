@@ -7,7 +7,7 @@
 
 <Card.Root class="w-full max-w-[400px]">
   <Card.Header>
-    <Card.Title class="text-2xl">Administrador</Card.Title>
+    <Card.Title class="text-2xl">Iniciar sesión</Card.Title>
     <Card.Description
       >Ingresa tu correo y contraseña para acceder.</Card.Description
     >
