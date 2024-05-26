@@ -198,17 +198,10 @@
           <!-- TODO: add something -->
 
           <div class="ml-auto flex items-center gap-2">
-            <Button size="sm" variant="outline" class="h-7 gap-1">
+            <Button size="sm" class="h-7 gap-1">
               <File class="h-3.5 w-3.5" />
               <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
                 Exportar
-              </span>
-            </Button>
-
-            <Button size="sm" class="h-7 gap-1">
-              <CirclePlus class="h-3.5 w-3.5" />
-              <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Añadir pedido
               </span>
             </Button>
           </div>

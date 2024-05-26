@@ -2,29 +2,12 @@
   import type { TableViewModel } from "svelte-headless-table";
   import Cross2 from "svelte-radix/Cross2.svelte";
   import type { Writable } from "svelte/store";
-  import { statuses } from "../data.js";
   import type { Task } from "../schemas.js";
-  import { DataTableFacetedFilter, DataTableViewOptions } from "./";
+  import { DataTableViewOptions } from "./";
   import Button from "$lib/components/ui/button/button.svelte";
   import { Input } from "$lib/components/ui/input/index.js";
 
   export let tableModel: TableViewModel<Task>;
-  export let data: Task[];
-
-  const counts = data.reduce<{
-    status: { [index: string]: number };
-    priority: { [index: string]: number };
-  }>(
-    (acc, { status, priority }) => {
-      acc.status[status] = (acc.status[status] || 0) + 1;
-      acc.priority[priority] = (acc.priority[priority] || 0) + 1;
-      return acc;
-    },
-    {
-      status: {},
-      priority: {},
-    },
-  );
 
   const { pluginStates } = tableModel;
   const {
@@ -56,12 +39,6 @@
       bind:value={$filterValue}
     />
 
-    <DataTableFacetedFilter
-      bind:filterValues={$filterValues.status}
-      title="Estado"
-      options={statuses}
-      counts={counts.status}
-    />
     {#if showReset}
       <Button
         on:click={() => {

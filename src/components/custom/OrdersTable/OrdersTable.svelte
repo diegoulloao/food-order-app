@@ -186,7 +186,7 @@
 </script>
 
 <div class="space-y-4">
-  <DataTableToolbar {tableModel} {data} />
+  <DataTableToolbar {tableModel} />
   <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
       <Table.Header>
