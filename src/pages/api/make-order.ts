@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro";
-import moongose from "mongoose";
 
 // astro
 export const prerender = false;
