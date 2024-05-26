@@ -1,3 +1,4 @@
+export { default as DataTableId } from "./DataTableId.svelte";
 export { default as DataTableCheckbox } from "./DataTableCheckbox.svelte";
 export { default as DataTableColumnHeader } from "./DataTableColumnHeader.svelte";
 export { default as DataTablePagination } from "./DataTablePagination.svelte";

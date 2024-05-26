@@ -3,11 +3,11 @@
 import { z } from "zod";
 
 export const taskSchema = z.object({
-  id: z.string(),
+  id: z.number().positive(),
   name: z.string(),
-  rut: z.string(),
+  cellphone: z.string(),
+  address: z.string().nullable(),
   amount: z.number(),
-  address: z.string(),
 });
 
 export type Task = z.infer<typeof taskSchema>;

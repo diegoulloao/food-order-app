@@ -1,19 +1,18 @@
 ---
 import AdminLayout from '$lib/layouts/AdminLayout.astro';
 import { AdminDashboard } from "$lib/components/custom"
+import { getOrders } from "$lib/queries"
+import type { OrdersData } from "$lib/types"
 
 // astro
 export const prerender = false
 
 // ssr data
-const response = await fetch("https://randomuser.me/api/");
-const data = await response.json();
-
-console.log(data?.results?.[0])
+const orders: OrdersData = await getOrders()
 ---
 
 <AdminLayout title="Admin · Chicos del Barrio">
   <main id="admin-home">
-    <AdminDashboard data={data} client:load />
+    <AdminDashboard data={orders} client:load />
   </main>
 </AdminLayout>

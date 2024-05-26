@@ -1,10 +1,33 @@
 <script lang="ts">
-  import * as Tabs from "$lib/components/ui/tabs/index.js";
-  import * as Card from "$lib/components/ui/card/index.js";
-  import { Button } from "$lib/components/ui/button/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import { Label } from "$lib/components/ui/label/index.js";
+  import * as Tabs from "$lib/components/ui/tabs";
+  import * as Card from "$lib/components/ui/card";
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
   import { FoodView } from "$lib/components/custom";
+  import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
+
+  import { createOrder } from "$lib/fetch";
+
+  // states
+  let loading: boolean = false;
+  let success: boolean | null = null;
+  let sent: boolean = false;
+
+  // handlers
+  const onMakeOrder = async (): Promise<void> => {
+    loading = true;
+    const result = await createOrder({});
+    loading = false;
+
+    success = result.status === 202;
+    sent = true;
+  };
+
+  const resetForm = (): void => {
+    success = null;
+    sent = false;
+  };
 </script>
 
 <Tabs.Root value="order" class="w-full max-w-[400px]">
@@ -26,32 +49,54 @@
       </Card.Header>
 
       <Card.Content class="space-y-2">
-        <div class="space-y-1">
-          <Label for="rut">Rut</Label>
-          <Input id="rut" value="12136897-8" />
-        </div>
+        {#if !sent}
+          <div class="space-y-1">
+            <Label for="cellphone">Celular</Label>
+            <Input id="cellphone" value="+56950011898" />
+          </div>
 
-        <div class="space-y-1">
-          <Label for="name">Nombre</Label>
-          <Input id="name" value="Pedro Duarte" data-1p-ignore />
-        </div>
+          <div class="space-y-1">
+            <Label for="name">Nombre</Label>
+            <Input id="name" value="Pedro Duarte" data-1p-ignore />
+          </div>
 
-        <div class="space-y-1">
-          <Label for="amount">Cantidad</Label>
+          <div class="space-y-1">
+            <Label for="amount">Cantidad</Label>
 
-          <Input
-            id="amount"
-            type="number"
-            value="1"
-            min="1"
-            max="10"
-            data-1p-ignore
-          />
-        </div>
+            <Input
+              id="amount"
+              type="number"
+              value="1"
+              min="1"
+              max="10"
+              data-1p-ignore
+            />
+          </div>
+        {:else}
+          <!-- TODO: add success screen -->
+          <div>Enviado!</div>
+        {/if}
       </Card.Content>
 
       <Card.Footer>
-        <Button>Hacer pedido</Button>
+        {#if !sent}
+          <Button
+            disabled={loading}
+            on:click={onMakeOrder}
+            class="flex items-center"
+          >
+            {#if loading}
+              <RotateCcw class="mr-2 h-4 w-4 animate-spin" />
+            {/if}
+
+            Hacer pedido
+          </Button>
+        {:else}
+          <Button on:click={resetForm}>
+            <ArrowLeft class="mr-2 h-4 w-4" />
+            Pedir nuevo
+          </Button>
+        {/if}
       </Card.Footer>
     </Card.Root>
   </Tabs.Content>
@@ -61,14 +106,14 @@
       <Card.Header>
         <Card.Title>Consultar</Card.Title>
         <Card.Description
-          >Consulta tus pedidos activos ingresando tu rut.</Card.Description
+          >Consulta tus pedidos activos ingresando tu celular.</Card.Description
         >
       </Card.Header>
 
       <Card.Content class="space-y-2">
         <div class="space-y-1">
-          <Label for="rut">Rut</Label>
-          <Input id="rut" value="12136897-8" />
+          <Label for="cellphone">Celular</Label>
+          <Input id="cellphone" value="+56950011898" />
         </div>
       </Card.Content>
 

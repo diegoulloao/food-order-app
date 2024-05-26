@@ -9,8 +9,8 @@
   import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
   import { OrdersTable } from "$lib/components/custom";
-
   // import Search from "lucide-svelte/icons/search";
+
   import {
     File,
     Home,
@@ -23,11 +23,15 @@
     UsersRound,
   } from "lucide-svelte/icons";
 
-  import orders from "$lib/data/orders.json";
+  // import orders from "$lib/data/orders.json";
+
+  import type { OrdersData } from "$lib/types";
 
   // props
-  export let data;
-  console.log(data?.results?.[0]);
+  let orders: OrdersData;
+  export { orders as data };
+
+  console.log({ orders });
 </script>
 
 <div class="flex min-h-screen w-full flex-col">
@@ -225,7 +229,12 @@
             </Card.Header>
 
             <Card.Content>
-              <OrdersTable data={orders} />
+              {#if orders}
+                <OrdersTable data={orders} />
+              {:else}
+                <!-- TODO: add error state -->
+                upssss
+              {/if}
             </Card.Content>
           </Card.Root>
         </Tabs.Content>

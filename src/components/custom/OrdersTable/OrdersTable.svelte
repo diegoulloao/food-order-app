@@ -20,6 +20,7 @@
   import type { Task } from "./schemas.ts";
 
   import {
+    DataTableId,
     DataTableCheckbox,
     DataTableColumnHeader,
     DataTablePagination,
@@ -76,10 +77,13 @@
     }),
     table.column({
       accessor: "id",
-      header: () => {
-        return "Pedido";
+      header: "ID",
+      id: "id",
+      cell: ({ value }) => {
+        return createRender(DataTableId, {
+          value,
+        });
       },
-      id: "task",
       plugins: {
         sort: {
           disable: true,
@@ -89,7 +93,7 @@
     table.column({
       accessor: "name",
       header: "Nombre",
-      id: "title",
+      id: "name",
       cell: ({ value, row }) => {
         if (row.isData()) {
           return createRender(DataTableTitleCell, {
@@ -100,36 +104,18 @@
       },
     }),
     table.column({
-      accessor: "rut",
-      header: "Rut",
-      id: "status",
+      accessor: "cellphone",
+      header: "Celular",
+      id: "cellphone",
       cell: ({ value }) => {
         return createRender(DataTableStatusCell, {
           value,
         });
       },
-      plugins: {
-        colFilter: {
-          fn: ({ filterValue, value }) => {
-            if (filterValue.length === 0) return true;
-            if (!Array.isArray(filterValue) || typeof value !== "string")
-              return true;
-            return filterValue.some((filter) => {
-              return value.includes(filter);
-            });
-          },
-          initialFilterValue: [],
-          render: ({ filterValue }) => {
-            return get(filterValue);
-          },
-        },
-      },
     }),
     table.column({
       accessor: "address",
-      header: () => {
-        return "Dirección";
-      },
+      header: "Dirección",
       id: "address",
       plugins: {
         sort: {
@@ -139,13 +125,14 @@
     }),
     table.column({
       accessor: "amount",
-      id: "priority",
+      id: "amount",
       header: "Cantidad",
       cell: ({ value }) => {
         return createRender(DataTablePriorityCell, {
           value: value.toString(),
         });
       },
+      // TODO: remove plugin?
       plugins: {
         colFilter: {
           fn: ({ filterValue, value }) => {
@@ -166,9 +153,7 @@
     }),
     table.display({
       id: "actions",
-      header: () => {
-        return "";
-      },
+      header: "",
       cell: ({ row }) => {
         if (row.isData() && row.original) {
           return createRender(DataTableRowActions, {

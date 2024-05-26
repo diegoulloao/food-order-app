@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { format as rutFormat } from "rut.js";
-
   export let value: string;
 
   // TODO: fix icon
@@ -11,5 +9,5 @@
   <!-- {#if Icon}
       <Icon class="mr-2 h-4 w-4 text-muted-foreground" />
     {/if} -->
-  <span>{rutFormat(value)}</span>
+  <span>{value}</span>
 </div>

@@ -18,7 +18,7 @@
     });
   }
 
-  const hidableCols = ["title", "status", "priority"];
+  const hidableCols = ["address", "cellphone", "id"];
 </script>
 
 <DropdownMenu.Root>
