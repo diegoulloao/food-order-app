@@ -1,16 +1,4 @@
 <script lang="ts">
-  import File from "lucide-svelte/icons/file";
-  import Home from "lucide-svelte/icons/home";
-  import LineChart from "lucide-svelte/icons/line-chart";
-  import Package from "lucide-svelte/icons/package";
-  import Package2 from "lucide-svelte/icons/package-2";
-  import PanelLeft from "lucide-svelte/icons/panel-left";
-  import CirclePlus from "lucide-svelte/icons/circle-plus";
-  // import Search from "lucide-svelte/icons/search";
-  import LogOut from "lucide-svelte/icons/log-out";
-  import ShoppingCart from "lucide-svelte/icons/shopping-cart";
-  import UsersRound from "lucide-svelte/icons/users-round";
-
   import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
@@ -21,7 +9,25 @@
   import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 
   import { OrdersTable } from "$lib/components/custom";
+
+  // import Search from "lucide-svelte/icons/search";
+  import {
+    File,
+    Home,
+    LineChart,
+    Package,
+    Package2,
+    PanelLeft,
+    LogOut,
+    ShoppingCart,
+    UsersRound,
+  } from "lucide-svelte/icons";
+
   import orders from "$lib/data/orders.json";
+
+  // props
+  export let data;
+  console.log(data?.results?.[0]);
 </script>
 
 <div class="flex min-h-screen w-full flex-col">
