@@ -7,7 +7,7 @@
   import PanelLeft from "lucide-svelte/icons/panel-left";
   import CirclePlus from "lucide-svelte/icons/circle-plus";
   // import Search from "lucide-svelte/icons/search";
-  import Settings from "lucide-svelte/icons/settings";
+  import LogOut from "lucide-svelte/icons/log-out";
   import ShoppingCart from "lucide-svelte/icons/shopping-cart";
   import UsersRound from "lucide-svelte/icons/users-round";
 
@@ -62,38 +62,6 @@
 
         <Tooltip.Content side="right">Pedidos</Tooltip.Content>
       </Tooltip.Root>
-
-      <!-- <Tooltip.Root>
-        <Tooltip.Trigger asChild let:builder>
-          <a
-            href="##"
-            class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            use:builder.action
-            {...builder}
-          >
-            <UsersRound class="h-5 w-5" />
-            <span class="sr-only">Usuarios</span>
-          </a>
-        </Tooltip.Trigger>
-
-        <Tooltip.Content side="right">Usuarios</Tooltip.Content>
-      </Tooltip.Root> -->
-
-      <Tooltip.Root>
-        <Tooltip.Trigger asChild let:builder>
-          <a
-            href="##"
-            class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            use:builder.action
-            {...builder}
-          >
-            <LineChart class="h-5 w-5" />
-            <span class="sr-only">Estadísticas</span>
-          </a>
-        </Tooltip.Trigger>
-
-        <Tooltip.Content side="right">Estadísticas</Tooltip.Content>
-      </Tooltip.Root>
     </nav>
 
     <nav class="mt-auto flex flex-col items-center gap-4 px-2 py-4">
@@ -105,12 +73,12 @@
             use:builder.action
             {...builder}
           >
-            <Settings class="h-5 w-5" />
-            <span class="sr-only">Settings</span>
+            <LogOut class="h-5 w-5" />
+            <span class="sr-only">Salir</span>
           </a>
         </Tooltip.Trigger>
 
-        <Tooltip.Content side="right">Settings</Tooltip.Content>
+        <Tooltip.Content side="right">Salir</Tooltip.Content>
       </Tooltip.Root>
     </nav>
   </aside>
