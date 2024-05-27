@@ -30,8 +30,6 @@
   // props
   let orders: OrdersData;
   export { orders as data };
-
-  console.log({ orders });
 </script>
 
 <div class="flex min-h-screen w-full flex-col">

@@ -4,30 +4,8 @@
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
-  import { FoodView } from "$lib/components/custom";
-  import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
 
-  import { createOrder } from "$lib/fetch";
-
-  // states
-  let loading: boolean = false;
-  let success: boolean | null = null;
-  let sent: boolean = false;
-
-  // handlers
-  const onMakeOrder = async (): Promise<void> => {
-    loading = true;
-    const result = await createOrder({});
-    loading = false;
-
-    success = result.status === 202;
-    sent = true;
-  };
-
-  const resetForm = (): void => {
-    success = null;
-    sent = false;
-  };
+  import { OrderForm } from "$lib/forms";
 </script>
 
 <Tabs.Root value="order" class="w-full max-w-[400px]">
@@ -37,68 +15,7 @@
   </Tabs.List>
 
   <Tabs.Content value="order">
-    <Card.Root>
-      <Card.Header>
-        <Card.Title>Ordenar</Card.Title>
-        <Card.Description>
-          <div class="flex flex-col space-y-5">
-            <p>Completa los datos para ordenar tu comida!</p>
-            <FoodView />
-          </div>
-        </Card.Description>
-      </Card.Header>
-
-      <Card.Content class="space-y-2">
-        {#if !sent}
-          <div class="space-y-1">
-            <Label for="cellphone">Celular</Label>
-            <Input id="cellphone" value="+56950011898" />
-          </div>
-
-          <div class="space-y-1">
-            <Label for="name">Nombre</Label>
-            <Input id="name" value="Pedro Duarte" data-1p-ignore />
-          </div>
-
-          <div class="space-y-1">
-            <Label for="amount">Cantidad</Label>
-
-            <Input
-              id="amount"
-              type="number"
-              value="1"
-              min="1"
-              max="10"
-              data-1p-ignore
-            />
-          </div>
-        {:else}
-          <!-- TODO: add success screen -->
-          <div>Enviado!</div>
-        {/if}
-      </Card.Content>
-
-      <Card.Footer>
-        {#if !sent}
-          <Button
-            disabled={loading}
-            on:click={onMakeOrder}
-            class="flex items-center"
-          >
-            {#if loading}
-              <RotateCcw class="mr-2 h-4 w-4 animate-spin" />
-            {/if}
-
-            Hacer pedido
-          </Button>
-        {:else}
-          <Button on:click={resetForm}>
-            <ArrowLeft class="mr-2 h-4 w-4" />
-            Pedir nuevo
-          </Button>
-        {/if}
-      </Card.Footer>
-    </Card.Root>
+    <OrderForm />
   </Tabs.Content>
 
   <Tabs.Content value="consult">

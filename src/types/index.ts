@@ -1,4 +1,4 @@
-import { Database } from "./database.types";
+import type { Database } from "./database.types";
 
 export type Order = Database["public"]["Tables"]["orders"]["Row"];
 export type OrdersData = Order[] | null;

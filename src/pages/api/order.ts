@@ -1,22 +1,33 @@
 import { supabase } from "$lib/supabase/client";
+import { orderSchema } from "$lib/validation";
 import type { APIRoute } from "astro";
 import type { CreateOrderResponse } from "$lib/types";
+import type { Order } from "$lib/validation";
 
 // astro
 export const prerender = false;
 
 export const POST: APIRoute<CreateOrderResponse> = async ({ request }) => {
-  const { name, address, cellphone, amount } = await request.json();
+  const data = (await request.json()) as Order;
+  const { success: valid } = orderSchema.safeParse(data);
 
+  if (!valid) {
+    return new Response(
+      JSON.stringify({
+        status: 400,
+        statusText: "Bad Request",
+        error: "Los datos no cumplen el estándar de validación",
+      }),
+    );
+  }
+
+  const { name, address, cellphone, amount } = data;
   const { error } = await supabase.from("orders").insert({
     name,
     address,
     cellphone,
-    amount,
+    amount: parseInt(amount),
   });
-
-  // TODO: validate and sanitize if needed
-  console.log({ name, address, cellphone, amount });
 
   if (error) {
     return new Response(

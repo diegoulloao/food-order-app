@@ -1,18 +1,10 @@
 import type { CreateOrderResponse } from "$lib/types";
+import type { Order } from "$lib/validation";
 
-// TODO: add types
-export async function createOrder(formData: any): Promise<CreateOrderResponse> {
-  console.log({ formData });
-  return;
-
+export async function createOrder(data: Order): Promise<CreateOrderResponse> {
   const response = await fetch("/api/order", {
     method: "POST",
-    body: JSON.stringify({
-      name: "Felipe Hernández",
-      address: "Terreno N7, Iñaque",
-      cellphone: "+56988437612",
-      amount: 1,
-    }),
+    body: JSON.stringify(data),
   });
 
   const result: CreateOrderResponse = await response.json();
