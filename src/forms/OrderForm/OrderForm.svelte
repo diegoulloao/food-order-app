@@ -26,8 +26,8 @@
 
   // states
   let loading: boolean = false;
-  let success: boolean | null = null;
   let sent: boolean = false;
+  let success: boolean | null = null;
   let errors: ZodFormattedError<Order> | null = null;
 
   // handlers

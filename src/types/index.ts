@@ -8,3 +8,5 @@ export type CreateOrderResponse = {
   statusText: string;
   error?: string;
 };
+
+export type ConsultResponse = Order[] | null;

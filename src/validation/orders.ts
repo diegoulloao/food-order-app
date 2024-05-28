@@ -11,5 +11,5 @@ const orderSchema = z.object({
   amount: z.string({ required_error: "Por favor agregar cantidad" }),
 });
 
-export type Order = z.infer<typeof orderSchema>;
 export { orderSchema };
+export type Order = z.infer<typeof orderSchema>;
