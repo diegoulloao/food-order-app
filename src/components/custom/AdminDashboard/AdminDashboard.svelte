@@ -3,27 +3,18 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-  // import { Input } from "$lib/components/ui/input/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import * as Tabs from "$lib/components/ui/tabs/index.js";
   import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-
   import { OrdersTable } from "$lib/components/custom";
-  // import Search from "lucide-svelte/icons/search";
 
   import {
-    File,
     Home,
-    LineChart,
-    Package,
-    Package2,
     PanelLeft,
     LogOut,
     ShoppingCart,
-    UsersRound,
+    User,
   } from "lucide-svelte/icons";
-
-  // import orders from "$lib/data/orders.json";
 
   import type { OrdersData } from "$lib/types";
 
@@ -110,48 +101,28 @@
 
         <Sheet.Content side="left" class="sm:max-w-xs">
           <nav class="grid gap-6 text-lg font-medium">
-            <a
-              href="##"
-              class="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-            >
-              <Package2 class="h-5 w-5 transition-all group-hover:scale-110" />
-              <span class="sr-only">Acme Inc</span>
-            </a>
+            <div class="mb-6 flex items-center space-x-3">
+              <div
+                class="flex h-8 w-8 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
+              >
+                <User class="h-4 w-4 transition-all" />
+                <span class="sr-only">Acme Inc</span>
+              </div>
+
+              <p class="text-sm font-normal">Juanito Pérez</p>
+            </div>
 
             <a
               href="##"
               class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
             >
               <Home class="h-5 w-5" />
-              Dashboard
-            </a>
-
-            <a
-              href="##"
-              class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
-              <ShoppingCart class="h-5 w-5" />
-              Orders
+              Inicio
             </a>
 
             <a href="##" class="flex items-center gap-4 px-2.5 text-foreground">
-              <Package class="h-5 w-5" />
-              Products
-            </a>
-            <a
-              href="##"
-              class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
-              <UsersRound class="h-5 w-5" />
-              Customers
-            </a>
-
-            <a
-              href="##"
-              class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
-              <LineChart class="h-5 w-5" />
-              Settings
+              <ShoppingCart class="h-5 w-5" />
+              Pedidos
             </a>
           </nav>
         </Sheet.Content>
@@ -204,15 +175,6 @@
       <Tabs.Root value="all">
         <div class="flex items-center">
           <!-- TODO: add something -->
-
-          <div class="ml-auto flex items-center gap-2">
-            <Button size="sm" class="h-7 gap-1">
-              <File class="h-3.5 w-3.5" />
-              <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Exportar
-              </span>
-            </Button>
-          </div>
         </div>
 
         <Tabs.Content value="all">
