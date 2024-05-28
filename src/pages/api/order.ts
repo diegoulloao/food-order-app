@@ -22,10 +22,14 @@ export const POST: APIRoute<CreateOrderResponse> = async ({ request }) => {
   }
 
   const { name, address, cellphone, amount } = data;
+
+  // format
+  const formattedCellPhone = `+569${cellphone.replace(/\D+/g, "")}`;
+
   const { error } = await supabase.from("orders").insert({
     name,
     address,
-    cellphone,
+    cellphone: formattedCellPhone,
     amount: parseInt(amount),
   });
 

@@ -12,12 +12,15 @@
       />
     </div>
 
-    <div class="ml-4 space-y-1">
-      <p class="text-md font-medium leading-none text-foreground">
-        Ensalada rusa con Chuleta de cerdo
+    <div class="ml-3 md:ml-4">
+      <p class="text-md line-clamp-1 font-medium leading-none text-foreground">
+        Ensalada rusa y Chuleta de cerdo
       </p>
 
-      <p class="text-sm text-foreground">Incluye pebre picante y pan</p>
+      <p class="line-clamp-1 text-sm text-foreground">
+        Incluye pebre y pan amasado
+      </p>
+
       <div class="ml-auto font-medium text-foreground">$4.990</div>
     </div>
   </div>

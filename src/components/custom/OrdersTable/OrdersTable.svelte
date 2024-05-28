@@ -113,7 +113,7 @@
         });
       },
     }),
-    table.column({
+    /* table.column({
       accessor: "address",
       header: "Dirección",
       id: "address",
@@ -122,7 +122,7 @@
           disable: true,
         },
       },
-    }),
+    }), */
     table.column({
       accessor: "amount",
       id: "amount",

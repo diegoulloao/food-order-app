@@ -1,14 +1,28 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
-  import { FoodView } from "$lib/components/custom";
-  import { FieldError } from "$lib/components/custom";
+
+  import {
+    FoodView,
+    FieldError,
+    PhoneInput,
+    CounterInput,
+  } from "$lib/components/custom";
+
   import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
   import { createOrder } from "$lib/fetch";
   import { orderSchema, type Order } from "$lib/validation";
   import type { ZodFormattedError } from "zod";
+
+  // references
+  let formEl: HTMLFormElement | null = null;
+
+  onMount(() => {
+    (formEl?.querySelector("#name") as HTMLInputElement | undefined)?.focus();
+  });
 
   // states
   let loading: boolean = false;
@@ -46,10 +60,10 @@
 
 <Card.Root>
   <Card.Header>
-    <Card.Title>Ordenar</Card.Title>
+    <Card.Title>Reservar plato</Card.Title>
     <Card.Description>
       <div class="flex flex-col space-y-5">
-        <p>Completa los datos para ordenar tu comida!</p>
+        <p>Completa tus datos para reservar tu comida!</p>
         <FoodView />
       </div>
     </Card.Description>
@@ -58,55 +72,49 @@
   <Card.Content class="space-y-2">
     {#if !sent}
       <form
+        bind:this={formEl}
         class="flex flex-col space-y-2"
         on:submit|preventDefault={onMakeOrder}
       >
         <div class="space-y-1">
-          <Label for="name">Nombre*</Label>
+          <Label for="name">Nombre</Label>
+
           <Input
             name="name"
             id="name"
-            value=""
-            placeholder="Juanito Pérez"
+            placeholder="Ej. Juanito Pérez"
             data-1p-ignore
           />
           <FieldError {errors} name="name" />
         </div>
 
         <div class="space-y-1">
-          <Label for="cellphone">Celular*</Label>
-          <Input name="cellphone" id="cellphone" value="" placeholder="+569" />
+          <Label for="cellphone">Celular</Label>
+          <PhoneInput name="cellphone" id="cellphone" placeholder="xxxx xxxx" />
           <FieldError {errors} name="cellphone" />
         </div>
 
-        <div class="space-y-1">
+        <!-- <div class="space-y-1">
           <Label for="address">Dirección</Label>
-          <Input
-            name="address"
-            id="address"
-            value=""
-            placeholder="(opcional)"
-          />
+          <Input data-1p-ignore name="address" id="address" />
           <FieldError {errors} name="address" />
-        </div>
+        </div> -->
 
         <div class="space-y-1">
-          <Label for="amount">Cantidad*</Label>
+          <Label for="amount">Cantidad</Label>
 
-          <Input
+          <CounterInput
             name="amount"
             id="amount"
             type="number"
-            value="1"
             min="1"
             max="10"
-            data-1p-ignore
           />
 
           <FieldError {errors} name="amount" />
         </div>
 
-        <div class="pt-2">
+        <div class="pt-5">
           <Button type="submit" disabled={loading} class="flex items-center">
             {#if loading}
               <RotateCcw class="mr-2 h-4 w-4 animate-spin" />
