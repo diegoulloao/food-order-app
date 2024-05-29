@@ -20,6 +20,10 @@
   let success: boolean | null = null;
   let errors: ActionInputError<Consult>["fields"] | null = null;
 
+  // reactive
+  let personName: string | null;
+  $: personName = orders?.[0]?.name ?? null;
+
   // handlers
   const onConsult = async (e: SubmitEvent): Promise<void> => {
     const formData = new FormData(e.target as HTMLFormElement);
@@ -39,7 +43,7 @@
   };
 
   const resetForm = (): void => {
-    success = null;
+    success = orders = null;
     sent = false;
   };
 </script>
@@ -50,7 +54,7 @@
       {#if !sent}
         Consultar reservas
       {:else}
-        Hola, {orders?.[0].name}
+        Hola, {personName}
       {/if}
     </Card.Title>
 
@@ -90,7 +94,7 @@
     {:else}
       <!-- TODO: add success screen -->
 
-      {#if orders}
+      {#if !!orders?.length}
         <div class="flex flex-col space-y-2">
           <article class="text-md my-3 flex flex-col space-y-3">
             {#each orders as order (order.id)}
@@ -107,6 +111,8 @@
             <div class="font-normal">{getItemsTotal(orders, price)}</div>
           </div>
         </div>
+      {:else}
+        <div>Sin pedidos encontrados.</div>
       {/if}
 
       <Button on:click={resetForm}>

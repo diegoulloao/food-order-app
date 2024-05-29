@@ -33,7 +33,7 @@
       </p>
 
       <p class="line-clamp-1 text-sm text-muted-foreground">
-        Pedido el {dateTime.format(new Date(order.created_at))} hrs
+        {dateTime.format(new Date(order.created_at))} hrs
       </p>
 
       <div class="ml-auto font-medium text-foreground">
