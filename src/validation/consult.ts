@@ -2,7 +2,10 @@ import z from "zod";
 
 const consultSchema = z.object({
   cellphone: z
-    .string({ required_error: "Por favor ingrese un celular" })
+    .string({
+      required_error: "Por favor ingrese un celular",
+      invalid_type_error: "Por favor ingrese un celular",
+    })
     .length(8, "Debe tener 11 dígitos incluyendo +569"),
 });
 

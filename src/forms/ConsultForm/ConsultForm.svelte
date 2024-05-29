@@ -76,7 +76,7 @@
         <div class="space-y-1">
           <Label for="cellphone">Celular</Label>
           <PhoneInput name="cellphone" id="cellphone" placeholder="xxxx xxxx" />
-          <FieldError2 name="cellphone" {errors} />
+          <FieldError2 {errors} name="cellphone" />
         </div>
 
         <Button
