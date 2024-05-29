@@ -64,7 +64,10 @@
     <Card.Description>
       <div class="flex flex-col space-y-5">
         <p>Completa tus datos para reservar tu comida!</p>
-        <FoodView />
+
+        {#if !sent}
+          <FoodView />
+        {/if}
       </div>
     </Card.Description>
   </Card.Header>
@@ -85,6 +88,7 @@
             placeholder="Ej. Juanito Pérez"
             data-1p-ignore
           />
+
           <FieldError {errors} name="name" />
         </div>
 

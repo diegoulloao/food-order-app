@@ -3,11 +3,15 @@
   import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
-  import { PhoneInput, FieldError2 } from "$lib/components/custom";
+  import { PhoneInput, FieldError2, FoodItem } from "$lib/components/custom";
+  import { getItemsTotal } from "$lib/helpers";
   import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
   import type { OrdersData } from "$lib/types";
   import type { Consult } from "$lib/validation";
   import type { ActionInputError } from "astro:actions";
+
+  // constants
+  const price: number = 4990;
 
   // states
   let orders: OrdersData = null;
@@ -42,9 +46,20 @@
 
 <Card.Root>
   <Card.Header class="pb-3">
-    <Card.Title>Consultar reservas</Card.Title>
+    <Card.Title>
+      {#if !sent && success}
+        Consultar reservas
+      {:else}
+        Hola, {orders?.[0].name}
+      {/if}
+    </Card.Title>
+
     <Card.Description>
-      Ingresa tu celular para ver tus reservas.
+      {#if !sent && success}
+        Ingresa tu celular para ver tus reservas.
+      {:else}
+        A continuación se listan tus pedidos:
+      {/if}
     </Card.Description>
   </Card.Header>
 
@@ -74,12 +89,24 @@
       </form>
     {:else}
       <!-- TODO: add success screen -->
-      <div>Pedidos:</div>
 
       {#if orders}
-        {#each orders as order (order.id)}
-          <div>{order.id}. {order.name}</div>
-        {/each}
+        <div class="flex flex-col space-y-2">
+          <article class="text-md my-3 flex flex-col space-y-3">
+            {#each orders as order (order.id)}
+              <FoodItem {order} {price} />
+            {/each}
+          </article>
+
+          <hr />
+
+          <div
+            class="flex justify-between pb-4 pt-2 text-right text-lg leading-none"
+          >
+            <div class="font-semibold">Total:</div>
+            <div class="font-normal">{getItemsTotal(orders, price)}</div>
+          </div>
+        </div>
       {/if}
 
       <Button on:click={resetForm}>

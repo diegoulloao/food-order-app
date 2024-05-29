@@ -21,7 +21,7 @@
 </script>
 
 <div class="touch-manipulation select-none">
-  <div class="flex items-center space-x-5">
+  <div class="flex items-center">
     <Button
       size="sm"
       variant="secondary"
@@ -31,7 +31,9 @@
       <Minus class="h-3 w-3" />
     </Button>
 
-    <span class="text-secondary-foreground">{value}</span>
+    <span class="w-9 text-center text-secondary-foreground">
+      {value}
+    </span>
 
     <Button
       size="sm"
