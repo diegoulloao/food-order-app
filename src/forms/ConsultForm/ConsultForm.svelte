@@ -24,6 +24,9 @@
   let personName: string | null;
   $: personName = orders?.[0]?.name ?? null;
 
+  let hasOrders: boolean;
+  $: hasOrders = !!orders?.length;
+
   // handlers
   const onConsult = async (e: SubmitEvent): Promise<void> => {
     const formData = new FormData(e.target as HTMLFormElement);
@@ -51,7 +54,7 @@
 <Card.Root>
   <Card.Header class="pb-3">
     <Card.Title>
-      {#if !sent || (sent && !orders?.length)}
+      {#if !sent || (sent && !hasOrders)}
         Consultar reservas
       {:else}
         Hola, {personName}
@@ -59,7 +62,7 @@
     </Card.Title>
 
     <Card.Description>
-      {#if !sent || (sent && !orders?.length)}
+      {#if !sent || (sent && !hasOrders)}
         Ingresa tu celular para ver tus reservas.
       {:else}
         A continuación se listan tus reservas:
