@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -30,6 +31,11 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
+    "oxlint": "^0.4.2",
     "svelte-headless-table": "^0.18.2"
   }
 }
