@@ -47,7 +47,7 @@
 <Card.Root>
   <Card.Header class="pb-3">
     <Card.Title>
-      {#if !sent && success}
+      {#if !sent}
         Consultar reservas
       {:else}
         Hola, {orders?.[0].name}
@@ -55,7 +55,7 @@
     </Card.Title>
 
     <Card.Description>
-      {#if !sent && success}
+      {#if !sent}
         Ingresa tu celular para ver tus reservas.
       {:else}
         A continuación se listan tus pedidos:
