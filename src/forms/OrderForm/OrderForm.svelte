@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
+  import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
 
   import {
     FoodView,
@@ -18,7 +19,8 @@
   import type { ZodFormattedError } from "zod";
 
   // references
-  let formEl: HTMLFormElement | null = null;
+  let formEl: HTMLFormElement | null;
+  let lottiePlayer: LottiePlayer;
 
   onMount(() => {
     (formEl?.querySelector("#name") as HTMLInputElement | undefined)?.focus();
@@ -29,6 +31,14 @@
   let sent: boolean = false;
   let success: boolean | null = null;
   let errors: ZodFormattedError<Order> | null = null;
+  let showLottie: boolean = false;
+
+  // helpers
+  const playLottie = (): void => {
+    lottiePlayer.getLottie().addEventListener("complete", () => {
+      showLottie = false;
+    });
+  };
 
   // handlers
   const onMakeOrder = async (e: SubmitEvent): Promise<void> => {
@@ -50,6 +60,10 @@
 
     success = result.status === 202;
     sent = true;
+
+    showLottie = true;
+    await tick();
+    playLottie();
   };
 
   const resetForm = (): void => {
@@ -63,7 +77,13 @@
     <Card.Title>Reservar plato</Card.Title>
     <Card.Description>
       <div class="flex flex-col space-y-5">
-        <p>Completa tus datos para reservar tu comida!</p>
+        <p>
+          {#if !sent || (sent && success === false)}
+            Completa tus datos para reservar tu comida!
+          {:else}
+            Completado con éxito!
+          {/if}
+        </p>
 
         {#if !sent}
           <FoodView />
@@ -98,12 +118,6 @@
           <FieldError {errors} name="cellphone" />
         </div>
 
-        <!-- <div class="space-y-1">
-          <Label for="address">Dirección</Label>
-          <Input data-1p-ignore name="address" id="address" />
-          <FieldError {errors} name="address" />
-        </div> -->
-
         <div class="space-y-1">
           <Label for="amount">Cantidad</Label>
 
@@ -129,8 +143,29 @@
         </div>
       </form>
     {:else}
-      <!-- TODO: add success screen -->
-      <div>Enviado!</div>
+      {#if success === true}
+        <div class="-mt-4 flex justify-center">
+          {#if showLottie}
+            <LottiePlayer
+              bind:this={lottiePlayer}
+              autoplay
+              loop={false}
+              src="/lottie/check.json"
+              controls={false}
+              renderer="svg"
+              background="transparent"
+              width={250}
+              height={250}
+            />
+          {:else}
+            <div class="w-full pb-4 pt-3 text-lg text-accent-foreground">
+              Gracias por reservar con nosotros ❤️
+            </div>
+          {/if}
+        </div>
+      {:else}
+        <div>Ups!</div>
+      {/if}
 
       <Button on:click={resetForm}>
         <ArrowLeft class="mr-2 h-4 w-4" />

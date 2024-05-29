@@ -5,7 +5,7 @@
   import { Label } from "$lib/components/ui/label";
   import { PhoneInput, FieldError2, FoodItem } from "$lib/components/custom";
   import { getItemsTotal } from "$lib/helpers";
-  import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
+  import { RotateCcw, ArrowLeft, HeartCrack } from "lucide-svelte/icons";
   import type { OrdersData } from "$lib/types";
   import type { Consult } from "$lib/validation";
   import type { ActionInputError } from "astro:actions";
@@ -51,7 +51,7 @@
 <Card.Root>
   <Card.Header class="pb-3">
     <Card.Title>
-      {#if !sent}
+      {#if !sent || (sent && !orders?.length)}
         Consultar reservas
       {:else}
         Hola, {personName}
@@ -59,10 +59,10 @@
     </Card.Title>
 
     <Card.Description>
-      {#if !sent}
+      {#if !sent || (sent && !orders?.length)}
         Ingresa tu celular para ver tus reservas.
       {:else}
-        A continuación se listan tus pedidos:
+        A continuación se listan tus reservas:
       {/if}
     </Card.Description>
   </Card.Header>
@@ -70,6 +70,7 @@
   <Card.Content class="space-y-2">
     {#if !sent}
       <form
+        method="POST"
         on:submit|preventDefault={onConsult}
         class="flex flex-col space-y-6"
       >
@@ -112,7 +113,10 @@
           </div>
         </div>
       {:else}
-        <div>Sin pedidos encontrados.</div>
+        <div class="flex items-center space-x-2 pb-4 pt-2">
+          <HeartCrack class="h-5 w-5" />
+          <p class="text-lg text-accent-foreground">Sin pedidos encontrados</p>
+        </div>
       {/if}
 
       <Button on:click={resetForm}>
