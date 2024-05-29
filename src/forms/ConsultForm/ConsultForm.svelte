@@ -5,6 +5,7 @@
   import { Label } from "$lib/components/ui/label";
   import { PhoneInput, FieldError2, FoodItem } from "$lib/components/custom";
   import { getItemsTotal } from "$lib/helpers";
+  import { consultSchema } from "$lib/validation";
   import { RotateCcw, ArrowLeft, HeartCrack } from "lucide-svelte/icons";
   import type { OrdersData } from "$lib/types";
   import type { Consult } from "$lib/validation";
@@ -30,9 +31,18 @@
   // handlers
   const onConsult = async (e: SubmitEvent): Promise<void> => {
     const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData) as Consult;
+
+    const { success: valid, error: validationErr } =
+      consultSchema.safeParse(data);
+
+    if (!valid) {
+      errors = validationErr.flatten().fieldErrors;
+      return;
+    }
 
     loading = true;
-    const { data, error } = await actions.consult.safe(formData);
+    const { data: result, error } = await actions.consult.safe(formData);
     loading = false;
 
     if (error && isInputError(error)) {
@@ -41,7 +51,7 @@
     }
 
     errors = null;
-    orders = data ?? null;
+    orders = result ?? null;
     success = sent = true;
   };
 
