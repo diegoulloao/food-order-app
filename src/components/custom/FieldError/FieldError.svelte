@@ -1,12 +1,17 @@
 <script lang="ts">
+  import type { ActionInputError } from "astro:actions";
+
+  // types
+  type T = Record<string, any>;
+
   // props
-  // TODO: how to hell type this shit!!
-  export let errors: any;
-  export let name: string;
+  export let errors: ActionInputError<T>["fields"] | null;
+  export let name: keyof T;
+
+  // reactive
+  $: error = errors?.[name]?.[0];
 </script>
 
-{#if !!Object.keys(errors?.[name] ?? {}).length && !!errors[name]._errors?.length}
-  <div class="text-xs text-red-500">
-    {errors[name]._errors[0]}
-  </div>
+{#if error}
+  <div class="text-xs text-red-500">{error}</div>
 {/if}

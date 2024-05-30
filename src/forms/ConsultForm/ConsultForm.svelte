@@ -3,7 +3,7 @@
   import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
-  import { PhoneInput, FieldError2, FoodItem } from "$lib/components/custom";
+  import { PhoneInput, FieldError, FoodItem } from "$lib/components/custom";
   import { getItemsTotal } from "$lib/helpers";
   import { consultSchema } from "$lib/validation";
   import { RotateCcw, ArrowLeft, HeartCrack } from "lucide-svelte/icons";
@@ -42,7 +42,7 @@
     }
 
     loading = true;
-    const { data: result, error } = await actions.consult.safe(formData);
+    const { data: result, error } = await actions.consult.safe(data);
     loading = false;
 
     if (error && isInputError(error)) {
@@ -90,7 +90,7 @@
         <div class="space-y-1">
           <Label for="cellphone">Celular</Label>
           <PhoneInput name="cellphone" id="cellphone" placeholder="xxxx xxxx" />
-          <FieldError2 {errors} name="cellphone" />
+          <FieldError {errors} name="cellphone" />
         </div>
 
         <Button

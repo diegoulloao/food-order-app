@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
+  import { actions, isInputError } from "astro:actions";
   import * as Card from "$lib/components/ui/card";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
@@ -14,9 +15,8 @@
   } from "$lib/components/custom";
 
   import { RotateCcw, ArrowLeft } from "lucide-svelte/icons";
-  import { createOrder } from "$lib/fetch";
   import { orderSchema, type Order } from "$lib/validation";
-  import type { ZodFormattedError } from "zod";
+  import type { ActionInputError } from "astro:actions";
 
   // references
   let formEl: HTMLFormElement | null;
@@ -30,7 +30,7 @@
   let loading: boolean = false;
   let sent: boolean = false;
   let success: boolean | null = null;
-  let errors: ZodFormattedError<Order> | null = null;
+  let errors: ActionInputError<Order>["fields"] | null = null;
   let showLottie: boolean = false;
 
   // helpers
@@ -43,22 +43,28 @@
   // handlers
   const onMakeOrder = async (e: SubmitEvent): Promise<void> => {
     const formData = new FormData(e.target as HTMLFormElement);
-
     const data = Object.fromEntries(formData) as Order;
-    const { error } = orderSchema.safeParse(data);
 
-    if (error) {
-      errors = error.format();
+    const { success: valid, error: validationErr } =
+      orderSchema.safeParse(data);
+
+    if (!valid) {
+      errors = validationErr.flatten().fieldErrors;
       success = false;
       return;
     }
 
-    errors = null;
     loading = true;
-    const result = await createOrder(data);
+    const { data: result, error } = await actions.order.safe(data);
     loading = false;
 
-    success = result.status === 202;
+    if (error && isInputError(error)) {
+      errors = error.fields;
+      return;
+    }
+
+    errors = null;
+    success = result === "success";
     sent = true;
 
     showLottie = true;
@@ -96,8 +102,9 @@
     {#if !sent}
       <form
         bind:this={formEl}
-        class="flex flex-col space-y-2"
+        method="POST"
         on:submit|preventDefault={onMakeOrder}
+        class="flex flex-col space-y-2"
       >
         <div class="space-y-1">
           <Label for="name">Nombre</Label>
