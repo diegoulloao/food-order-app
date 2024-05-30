@@ -5,6 +5,7 @@
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
+  import { Error } from "$lib/components/custom";
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
 
   import {
@@ -80,14 +81,23 @@
 
 <Card.Root>
   <Card.Header>
-    <Card.Title>Reservar plato</Card.Title>
+    <Card.Title>
+      {#if !sent || (sent && success === true)}
+        Reservar plato
+      {:else}
+        Ups!
+      {/if}
+    </Card.Title>
+
     <Card.Description>
       <div class="flex flex-col space-y-5">
         <p>
-          {#if !sent || (sent && success === false)}
+          {#if !sent}
             Completa tus datos para reservar tu comida!
-          {:else}
+          {:else if sent && success === true}
             Completado con éxito!
+          {:else}
+            Parece que tuvimos un problema
           {/if}
         </p>
 
@@ -171,12 +181,16 @@
           {/if}
         </div>
       {:else}
-        <div>Ups!</div>
+        <Error />
       {/if}
 
       <Button on:click={resetForm}>
         <ArrowLeft class="mr-2 h-4 w-4" />
-        Pedir nuevo
+        {#if success}
+          Pedir nuevo
+        {:else}
+          Volver a intentar
+        {/if}
       </Button>
     {/if}
   </Card.Content>

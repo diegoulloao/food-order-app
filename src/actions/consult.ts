@@ -1,4 +1,4 @@
-import { defineAction } from "astro:actions";
+import { defineAction, ActionError } from "astro:actions";
 import { supabase } from "$lib/supabase/client";
 import { consultSchema } from "$lib/validation";
 import type { ConsultResponse } from "$lib/types";
@@ -15,7 +15,10 @@ export const consult = defineAction({
       .eq("cellphone", cellphone);
 
     if (error) {
-      return null;
+      throw new ActionError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: error.message,
+      });
     }
 
     return data;

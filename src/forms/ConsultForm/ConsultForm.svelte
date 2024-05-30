@@ -4,6 +4,7 @@
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
   import { PhoneInput, FieldError, FoodItem } from "$lib/components/custom";
+  import { Error } from "$lib/components/custom";
   import { getItemsTotal } from "$lib/helpers";
   import { consultSchema } from "$lib/validation";
   import { RotateCcw, ArrowLeft, HeartCrack } from "lucide-svelte/icons";
@@ -64,18 +65,22 @@
 <Card.Root>
   <Card.Header class="pb-3">
     <Card.Title>
-      {#if !sent || (sent && !hasOrders)}
+      {#if !sent}
         Consultar reservas
-      {:else}
+      {:else if sent && hasOrders}
         Hola, {personName}
+      {:else}
+        Ups!
       {/if}
     </Card.Title>
 
     <Card.Description>
-      {#if !sent || (sent && !hasOrders)}
+      {#if !sent}
         Ingresa tu celular para ver tus reservas.
-      {:else}
+      {:else if sent && hasOrders}
         A continuación se listan tus reservas:
+      {:else}
+        Parece que tuvimos un problema :(
       {/if}
     </Card.Description>
   </Card.Header>
@@ -106,8 +111,6 @@
         </Button>
       </form>
     {:else}
-      <!-- TODO: add success screen -->
-
       {#if !!orders?.length}
         <div class="flex flex-col space-y-2">
           <article class="text-md my-3 flex flex-col space-y-3">
@@ -125,16 +128,23 @@
             <div class="font-normal">{getItemsTotal(orders, price)}</div>
           </div>
         </div>
-      {:else}
+      {:else if orders?.length === 0}
         <div class="flex items-center space-x-2 pb-4 pt-2">
           <HeartCrack class="h-5 w-5" />
           <p class="text-lg text-accent-foreground">Sin pedidos encontrados</p>
         </div>
+      {:else}
+        <Error class="mt-3" />
       {/if}
 
       <Button on:click={resetForm}>
         <ArrowLeft class="mr-2 h-4 w-4" />
-        Consultar nuevo
+
+        {#if orders !== null}
+          Consultar nuevo
+        {:else}
+          Volver a intentar
+        {/if}
       </Button>
     {/if}
   </Card.Content>
