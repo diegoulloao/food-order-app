@@ -12,7 +12,5 @@ const orders: OrdersData = await getOrders()
 ---
 
 <AdminLayout title="Admin · App pedidos de comida">
-  <main id="admin-home">
-    <AdminDashboard data={orders} client:load />
-  </main>
+  <AdminDashboard data={orders} client:load />
 </AdminLayout>
