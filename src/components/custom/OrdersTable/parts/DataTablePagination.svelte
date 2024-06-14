@@ -24,7 +24,7 @@
   </div>
   <div class="flex items-center space-x-6 lg:space-x-8">
     <div class="flex items-center space-x-2">
-      <p class="text-sm font-medium">Pedidos por página</p>
+      <p class="text-sm font-medium">Mostrar</p>
       <Select.Root
         onSelectedChange={(selected) => pageSize.set(Number(selected?.value))}
         selected={{ value: 10, label: "10" }}

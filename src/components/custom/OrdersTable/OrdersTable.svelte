@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { get, readable } from "svelte/store";
+  import { readable } from "svelte/store";
 
   import {
     Render,
@@ -24,10 +24,9 @@
     DataTableCheckbox,
     DataTableColumnHeader,
     DataTablePagination,
-    DataTablePriorityCell,
     DataTableRowActions,
-    DataTableStatusCell,
-    DataTableTitleCell,
+    DataTableCellphoneCell,
+    DataTableNameCell,
     DataTableToolbar,
   } from "./parts";
 
@@ -96,10 +95,11 @@
       id: "name",
       cell: ({ value, row }) => {
         if (row.isData()) {
-          return createRender(DataTableTitleCell, {
+          return createRender(DataTableNameCell, {
             value,
           });
         }
+
         return value;
       },
     }),
@@ -108,7 +108,7 @@
       header: "Celular",
       id: "cellphone",
       cell: ({ value }) => {
-        return createRender(DataTableStatusCell, {
+        return createRender(DataTableCellphoneCell, {
           value,
         });
       },
@@ -127,29 +127,6 @@
       accessor: "amount",
       id: "amount",
       header: "Cantidad",
-      cell: ({ value }) => {
-        return createRender(DataTablePriorityCell, {
-          value: value.toString(),
-        });
-      },
-      // TODO: remove plugin?
-      plugins: {
-        colFilter: {
-          fn: ({ filterValue, value }) => {
-            if (filterValue.length === 0) return true;
-            if (!Array.isArray(filterValue) || typeof value !== "string")
-              return true;
-
-            return filterValue.some((filter) => {
-              return value.includes(filter);
-            });
-          },
-          initialFilterValue: [],
-          render: ({ filterValue }) => {
-            return get(filterValue);
-          },
-        },
-      },
     }),
     table.display({
       id: "actions",
@@ -160,18 +137,19 @@
             row: row.original,
           });
         }
+
         return "";
       },
     }),
   ]);
 
   const tableModel = table.createViewModel(columns);
-
   const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
 </script>
 
 <div class="space-y-4">
   <DataTableToolbar {tableModel} />
+
   <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
       <Table.Header>
@@ -192,8 +170,8 @@
                         {tableModel}
                         cellId={cell.id}
                       >
-                        <Render of={cell.render()} /></DataTableColumnHeader
-                      >
+                        <Render of={cell.render()} />
+                      </DataTableColumnHeader>
                     {:else}
                       <Render of={cell.render()} />
                     {/if}
@@ -204,6 +182,7 @@
           </Subscribe>
         {/each}
       </Table.Header>
+
       <Table.Body {...$tableBodyAttrs}>
         {#if $pageRows.length}
           {#each $pageRows as row (row.id)}
@@ -235,5 +214,6 @@
       </Table.Body>
     </Table.Root>
   </div>
+
   <DataTablePagination {tableModel} />
 </div>
