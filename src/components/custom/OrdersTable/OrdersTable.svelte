@@ -134,7 +134,6 @@
       cell: ({ row }) => {
         if (row.isData() && row.original) {
           return createRender(DataTableRowActions, {
-            // TODO: fix type
             row: row.original,
           });
         }

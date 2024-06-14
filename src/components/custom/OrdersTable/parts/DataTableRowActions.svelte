@@ -2,6 +2,10 @@
   import DotsHorizontal from "svelte-radix/DotsHorizontal.svelte";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+  import type { Order } from "$lib/types";
+
+  export let row: Order;
+  console.log({ row });
 </script>
 
 <DropdownMenu.Root>
