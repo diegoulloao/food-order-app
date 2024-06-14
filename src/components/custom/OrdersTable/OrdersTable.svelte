@@ -17,7 +17,7 @@
     addTableFilter,
   } from "svelte-headless-table/plugins";
 
-  import type { Task } from "./schemas.ts";
+  import type { Order } from "$lib/types";
 
   import {
     DataTableId,
@@ -32,7 +32,7 @@
 
   import * as Table from "$lib/components/ui/table";
 
-  export let data: Task[];
+  export let data: Order[];
 
   const table = createTable(readable(data), {
     select: addSelectedRows(),
@@ -134,6 +134,7 @@
       cell: ({ row }) => {
         if (row.isData() && row.original) {
           return createRender(DataTableRowActions, {
+            // TODO: fix type
             row: row.original,
           });
         }

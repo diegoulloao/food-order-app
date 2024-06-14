@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
-  import { OrdersTable } from "$lib/components/custom";
+  import { OrdersTable, Error } from "$lib/components/custom";
   import type { OrdersData } from "$lib/types";
 
   // props
@@ -23,8 +23,13 @@
       {#if orders}
         <OrdersTable data={orders} />
       {:else}
-        <!-- TODO: add error state -->
-        upssss
+        <div class="flex flex-col items-center space-y-3 py-8">
+          <Error />
+
+          <h2 class="text-xl font-normal text-muted-foreground">
+            Lo lamentamos, no pudimos cargar los pedidos :(
+          </h2>
+        </div>
       {/if}
     </Card.Content>
   </Card.Root>
