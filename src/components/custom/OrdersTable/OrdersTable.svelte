@@ -83,11 +83,6 @@
           value,
         });
       },
-      plugins: {
-        sort: {
-          disable: true,
-        },
-      },
     }),
     table.column({
       accessor: "name",
@@ -111,6 +106,11 @@
         return createRender(DataTableCellphoneCell, {
           value,
         });
+      },
+      plugins: {
+        sort: {
+          disable: true,
+        },
       },
     }),
     /* table.column({
@@ -165,11 +165,8 @@
                 >
                   <Table.Head {...attrs}>
                     {#if cell.id !== "select" && cell.id !== "actions"}
-                      <DataTableColumnHeader
-                        {props}
-                        {tableModel}
-                        cellId={cell.id}
-                      >
+                      <!-- <DataTableColumnHeader {props} {tableModel} cellId={cell.id}> -->
+                      <DataTableColumnHeader {props}>
                         <Render of={cell.render()} />
                       </DataTableColumnHeader>
                     {:else}
