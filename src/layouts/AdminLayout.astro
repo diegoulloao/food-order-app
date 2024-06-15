@@ -6,14 +6,11 @@ interface Props {
 import { ViewTransitions } from 'astro:transitions';
 import { Aside, Header } from "$lib/components/layout"
 import { cn } from "$lib/utils"
+
 import "$lib/styles/app.css";
 
+// page
 const { title } = Astro.props;
-
-const accessToken = Astro.cookies.get("access_token")?.value
-const refreshToken = Astro.cookies.get("refresh_token")?.value
-
-console.log({ accessToken, refreshToken })
 ---
 
 <!doctype html>

@@ -1,9 +1,27 @@
 ---
 import Layout from "$lib/layouts/Layout.astro"
 import { AdminLogin } from "$lib/components/custom"
+import { getUser } from "$lib/auth"
 
 // on demand
 export const prerender = false
+
+// session
+const accessToken = Astro.cookies.get("access_token")?.value
+const refreshToken = Astro.cookies.get("refresh_token")?.value
+
+// auth
+const user = await getUser({ accessToken, refreshToken })
+
+// page path
+const url = new URL(Astro.request.url)
+const pathname = url.pathname.replace(/\/$/, "")
+
+console.log({ user, accessToken, refreshToken })
+
+if (user && pathname === "/admin") {
+  return Astro.redirect("/admin/dashboard")
+}
 ---
 
 <Layout title="Inicia sesión · App pedidos de comida">
