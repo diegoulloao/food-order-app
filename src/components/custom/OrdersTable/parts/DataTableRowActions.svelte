@@ -2,10 +2,10 @@
   import DotsHorizontal from "svelte-radix/DotsHorizontal.svelte";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+  import { CheckIcon, Timer, X } from "lucide-svelte";
   import type { Order } from "$lib/types";
 
   export let row: Order;
-  console.log({ row });
 </script>
 
 <DropdownMenu.Root>
@@ -19,14 +19,32 @@
       <span class="sr-only">Open Menu</span>
     </Button>
   </DropdownMenu.Trigger>
-  <DropdownMenu.Content class="w-[160px]" align="end">
-    <DropdownMenu.Item>Edit</DropdownMenu.Item>
-    <DropdownMenu.Item>Make a copy</DropdownMenu.Item>
-    <DropdownMenu.Item>Favorite</DropdownMenu.Item>
+
+  <DropdownMenu.Content class="max-w-[180px]" align="end">
+    <DropdownMenu.Item
+      class="flex items-center space-x-2"
+      on:click={() => console.log({ row })}
+    >
+      <CheckIcon class="h-4 w-4 text-muted-foreground/70" />
+      <p>Marcar entregado</p>
+    </DropdownMenu.Item>
+
+    <DropdownMenu.Item
+      class="flex items-center space-x-2"
+      on:click={() => console.log({ row })}
+    >
+      <Timer class="h-4 w-4 text-muted-foreground/70" />
+      <p>Marcar pendiente</p>
+    </DropdownMenu.Item>
+
     <DropdownMenu.Separator />
-    <DropdownMenu.Item>
-      Delete
-      <DropdownMenu.Shortcut>⌘⌫</DropdownMenu.Shortcut>
+
+    <DropdownMenu.Item
+      class="flex items-center space-x-2"
+      on:click={() => console.log({ row })}
+    >
+      <X class="h-4 w-4 text-muted-foreground/70" />
+      <p>Borrar</p>
     </DropdownMenu.Item>
   </DropdownMenu.Content>
 </DropdownMenu.Root>
