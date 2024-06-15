@@ -3,7 +3,14 @@ interface Props {
 	title: string;
 }
 
+import { ViewTransitions } from 'astro:transitions';
+
 const { title } = Astro.props;
+
+const accessToken = Astro.cookies.get("access_token")?.value
+const refreshToken = Astro.cookies.get("refresh_token")?.value
+
+console.log({ accessToken, refreshToken })
 
 import "$lib/styles/app.css";
 ---
@@ -20,6 +27,8 @@ import "$lib/styles/app.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 		<title>{title}</title>
+
+    <ViewTransitions />
 	</head>
 
 	<body class="min-h-dvh h-full p-4">
@@ -28,5 +37,5 @@ import "$lib/styles/app.css";
 </html>
 
 <style is:global>
-  /* styles */
+  /* global styles */
 </style>

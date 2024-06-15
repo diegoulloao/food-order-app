@@ -3,11 +3,17 @@ interface Props {
 	title: string;
 }
 
+import { ViewTransitions } from 'astro:transitions';
 import { Aside, Header } from "$lib/components/layout"
 import { cn } from "$lib/utils"
 import "$lib/styles/app.css";
 
 const { title } = Astro.props;
+
+const accessToken = Astro.cookies.get("access_token")?.value
+const refreshToken = Astro.cookies.get("refresh_token")?.value
+
+console.log({ accessToken, refreshToken })
 ---
 
 <!doctype html>
@@ -21,6 +27,8 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 		<title>{title}</title>
+
+    <ViewTransitions />
 	</head>
 
 	<body class="min-h-dvh flex h-full w-full bg-muted/40">
