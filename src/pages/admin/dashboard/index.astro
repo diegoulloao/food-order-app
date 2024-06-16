@@ -1,6 +1,7 @@
 ---
 import AdminLayout from '$lib/layouts/AdminLayout.astro';
 import { AdminDashboard } from "$lib/components/custom"
+import { Auth } from "$lib/components/auth"
 import { getUser } from "$lib/auth/server"
 import { getOrders } from "$lib/queries"
 import type { OrdersData } from "$lib/types"
@@ -24,5 +25,6 @@ const orders: OrdersData = await getOrders()
 ---
 
 <AdminLayout title="Admin · App pedidos de comida">
+  <Auth client:only="svelte" {user} />
   <AdminDashboard data={orders} client:load />
 </AdminLayout>

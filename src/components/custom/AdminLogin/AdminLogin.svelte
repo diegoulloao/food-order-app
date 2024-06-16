@@ -89,7 +89,12 @@
 
       <div class="grid gap-2">
         <Label for="password">Contraseña</Label>
-        <Input name="password" id="password" type="password" />
+        <Input
+          name="password"
+          id="password"
+          type="password"
+          placeholder="contraseña"
+        />
         <FieldError {errors} name="password" />
       </div>
 

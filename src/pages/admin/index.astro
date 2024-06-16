@@ -1,6 +1,7 @@
 ---
 import Layout from "$lib/layouts/Layout.astro"
 import { AdminLogin } from "$lib/components/custom"
+import { Auth } from "$lib/components/auth"
 import { getUser } from "$lib/auth/server"
 
 // on demand
@@ -23,6 +24,8 @@ if (user && pathname === "/admin") {
 ---
 
 <Layout title="Inicia sesión · App pedidos de comida">
+  <Auth client:only="svelte" {user} />
+
   <main id="admin-login" class="flex h-full items-center justify-center">
     <AdminLogin client:only="svelte" />
   </main>
