@@ -1,9 +1,14 @@
 <script lang="ts">
+  import { app } from "$lib/stores";
   import * as Tooltip from "$lib/components/ui/tooltip/index.js";
   import { Home, LogOut, ShoppingCart } from "lucide-svelte/icons";
-  import { app } from "$lib/stores";
+  import { logOut } from "$lib/auth/client";
 
   $: console.log({ $app });
+
+  const onLogOut = async (): Promise<void> => {
+    await logOut();
+  };
 </script>
 
 <aside
@@ -47,7 +52,7 @@
     <Tooltip.Root>
       <Tooltip.Trigger asChild let:builder>
         <button
-          on:click={() => (window.location.href = "/admin")}
+          on:click={onLogOut}
           class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
           use:builder.action
           {...builder}

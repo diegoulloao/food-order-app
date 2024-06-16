@@ -6,7 +6,12 @@
   import { Home, PanelLeft, ShoppingCart, User } from "lucide-svelte/icons";
   import { app } from "$lib/stores";
   import { cn } from "$lib/utils";
+  import { logOut } from "$lib/auth/client";
   import type { ClassValue } from "clsx";
+
+  const onLogOut = async (): Promise<void> => {
+    await logOut();
+  };
 
   // props
   let className: ClassValue = null;
@@ -107,9 +112,7 @@
         {$app.user?.email}
       </DropdownMenu.Label>
       <DropdownMenu.Separator />
-      <DropdownMenu.Item on:click={() => (window.location.href = "/admin")}>
-        Cerrar sesión
-      </DropdownMenu.Item>
+      <DropdownMenu.Item on:click={onLogOut}>Cerrar sesión</DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
 </header>

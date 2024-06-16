@@ -29,14 +29,3 @@ export const getUser = async ({
     return null;
   }
 };
-
-export const logOut = async (): Promise<boolean> => {
-  /* const { error } = await supabase.auth.signOut();
-
-  if (error) {
-    console.log(error.message);
-    return false;
-  }
-*/
-  return true;
-};

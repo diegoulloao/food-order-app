@@ -5,8 +5,9 @@ import type { AstroCookieSetOptions } from "astro";
 import type { LoginResponse } from "$lib/types";
 
 const config: AstroCookieSetOptions = {
-  path: "/admin",
   sameSite: "strict",
+  path: "/admin",
+  // httpOnly: true,
 };
 
 export const login = defineAction({

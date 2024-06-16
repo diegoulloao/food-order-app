@@ -1,7 +1,7 @@
 ---
 import AdminLayout from '$lib/layouts/AdminLayout.astro';
 import { AdminDashboard } from "$lib/components/custom"
-import { getUser } from "$lib/auth"
+import { getUser } from "$lib/auth/server"
 import { getOrders } from "$lib/queries"
 import type { OrdersData } from "$lib/types"
 
