@@ -17,8 +17,6 @@ const user = await getUser({ accessToken, refreshToken })
 const url = new URL(Astro.request.url)
 const pathname = url.pathname.replace(/\/$/, "")
 
-console.log({ user, accessToken, refreshToken })
-
 if (user && pathname === "/admin") {
   return Astro.redirect("/admin/dashboard")
 }

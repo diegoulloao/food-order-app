@@ -14,6 +14,12 @@ const deleteOpts: AstroCookieDeleteOptions = {
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   const { access_token } = await request.json();
+
+  if (!access_token) {
+    console.error("no access token provided");
+    return new Response(JSON.stringify({ success: false }));
+  }
+
   const { error } = await supabase.auth.admin.signOut(access_token);
 
   if (error) {

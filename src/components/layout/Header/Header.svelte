@@ -9,7 +9,12 @@
   import { logOut } from "$lib/auth/client";
   import type { ClassValue } from "clsx";
 
+  // states
+  let loading: boolean = false;
+
+  // handlers
   const onLogOut = async (): Promise<void> => {
+    loading = true;
     await logOut();
   };
 
@@ -112,7 +117,13 @@
         {$app.user?.email}
       </DropdownMenu.Label>
       <DropdownMenu.Separator />
-      <DropdownMenu.Item on:click={onLogOut}>Cerrar sesión</DropdownMenu.Item>
+      <DropdownMenu.Item
+        class={cn({ "opacity-70": loading })}
+        on:click={onLogOut}
+        disabled={loading}
+      >
+        Cerrar sesión
+      </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
 </header>

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { navigate } from "astro:transitions/client";
-  import { tick } from "svelte";
   import { actions, isInputError } from "astro:actions";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
@@ -9,6 +8,8 @@
   import { FieldError } from "$lib/components/custom";
   import { loginSchema } from "$lib/validation";
   import { app } from "$lib/stores";
+  import { RotateCcw } from "lucide-svelte/icons";
+  import { translate } from "$lib/helpers";
   import type { ActionInputError } from "astro:actions";
   import type { Login } from "$lib/validation";
   import type { LoginResponse } from "$lib/types";
@@ -21,6 +22,8 @@
 
   // handlers
   const handleLogin = async (e: SubmitEvent): Promise<void> => {
+    errors = null;
+
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData) as Login;
 
@@ -33,28 +36,28 @@
     }
 
     loading = true;
-    const { data: result, error } = await actions.login.safe(data);
-    loading = false;
+    const { data: result, error: loginErr } = await actions.login.safe(data);
 
-    console.log({ result, error });
-
-    if (error && isInputError(error)) {
-      errors = error.fields;
+    if (loginErr && isInputError(loginErr)) {
+      errors = loginErr.fields;
+      loading = false;
       return;
     }
 
-    // TODO: handle error cases properly
-    const { user } = result as LoginResponse;
-    $app.user = user;
+    const { user, error } = result as LoginResponse;
 
+    if (!user || error) {
+      loading = false;
+      errors = { email: [translate(error as string)] };
+      return;
+    }
+
+    $app.user = user;
     errors = null;
     success = sent = true;
 
-    await tick();
     navigate("/admin/dashboard");
   };
-
-  $: console.log({ $app });
 </script>
 
 <Card.Root class="w-full max-w-[400px]">
@@ -80,6 +83,7 @@
           type="email"
           placeholder="juanito@email.com"
         />
+
         <FieldError {errors} name="email" />
       </div>
 
@@ -90,7 +94,13 @@
       </div>
 
       <div class="pt-2">
-        <Button type="submit" class="w-full">Entrar</Button>
+        <Button type="submit" class="w-full" disabled={loading}>
+          {#if loading}
+            <RotateCcw class="mr-2 h-4 w-4 animate-spin" />
+          {/if}
+
+          Entrar
+        </Button>
       </div>
     </form>
   </Card.Content>

@@ -8,9 +8,6 @@ export const logOut = async (): Promise<void> => {
 
   const result = await fetch("/api/logout", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify({ access_token }),
   });
 

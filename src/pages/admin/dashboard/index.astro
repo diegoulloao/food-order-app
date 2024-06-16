@@ -15,8 +15,6 @@ const refreshToken = Astro.cookies.get("refresh_token")?.value
 // auth
 const user = await getUser({ accessToken, refreshToken })
 
-console.log({ user, accessToken, refreshToken })
-
 if (!user) {
   return Astro.redirect("/admin")
 }
