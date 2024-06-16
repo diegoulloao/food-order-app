@@ -3,10 +3,13 @@ interface Props {
 	title: string;
 }
 
+import { ViewTransitions } from 'astro:transitions';
 import { Aside, Header } from "$lib/components/layout"
 import { cn } from "$lib/utils"
+
 import "$lib/styles/app.css";
 
+// page
 const { title } = Astro.props;
 ---
 
@@ -21,6 +24,8 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 		<title>{title}</title>
+
+    <ViewTransitions />
 	</head>
 
 	<body class="min-h-dvh flex h-full w-full bg-muted/40">

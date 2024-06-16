@@ -4,14 +4,26 @@
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import { Home, PanelLeft, ShoppingCart, User } from "lucide-svelte/icons";
+  import { app } from "$lib/stores";
   import { cn } from "$lib/utils";
+  import { logOut } from "$lib/auth/client";
   import type { ClassValue } from "clsx";
+
+  // states
+  let loading: boolean = false;
+
+  // handlers
+  const onLogOut = async (): Promise<void> => {
+    loading = true;
+    await logOut();
+  };
 
   // props
   let className: ClassValue = null;
   export { className as class };
 </script>
 
+<!-- TODO: move mobile menu to component -->
 <header
   class={cn(
     "sticky top-0 z-30 flex h-auto w-full gap-4 border-b bg-background p-2 sm:static lg:border-none lg:bg-transparent",
@@ -80,6 +92,10 @@
 
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
+      <p class="text-sm text-muted-foreground">
+        {$app.user?.email?.split("@")[0] ?? ""}
+      </p>
+
       <Button
         builders={[builder]}
         variant="outline"
@@ -97,9 +113,17 @@
     </DropdownMenu.Trigger>
 
     <DropdownMenu.Content align="end">
-      <DropdownMenu.Label>Cuenta</DropdownMenu.Label>
+      <DropdownMenu.Label>
+        {$app.user?.email}
+      </DropdownMenu.Label>
       <DropdownMenu.Separator />
-      <DropdownMenu.Item>Cerrar sesión</DropdownMenu.Item>
+      <DropdownMenu.Item
+        class={cn({ "opacity-70": loading })}
+        on:click={onLogOut}
+        disabled={loading}
+      >
+        Cerrar sesión
+      </DropdownMenu.Item>
     </DropdownMenu.Content>
   </DropdownMenu.Root>
 </header>

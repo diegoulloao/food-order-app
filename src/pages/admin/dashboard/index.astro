@@ -1,16 +1,30 @@
 ---
 import AdminLayout from '$lib/layouts/AdminLayout.astro';
 import { AdminDashboard } from "$lib/components/custom"
+import { Auth } from "$lib/components/auth"
+import { getUser } from "$lib/auth/server"
 import { getOrders } from "$lib/queries"
 import type { OrdersData } from "$lib/types"
 
-// astro
+// on demand
 export const prerender = false
+
+// session
+const accessToken = Astro.cookies.get("access_token")?.value
+const refreshToken = Astro.cookies.get("refresh_token")?.value
+
+// auth
+const user = await getUser({ accessToken, refreshToken })
+
+if (!user) {
+  return Astro.redirect("/admin")
+}
 
 // ssr data
 const orders: OrdersData = await getOrders()
 ---
 
 <AdminLayout title="Admin · App pedidos de comida">
+  <Auth client:only="svelte" {user} />
   <AdminDashboard data={orders} client:load />
 </AdminLayout>
