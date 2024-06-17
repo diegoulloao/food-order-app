@@ -1,6 +1,7 @@
 import PdfPrinter from "pdfmake";
 import { pdfModel } from "./model";
 import { fonts } from "./fonts";
+import { tableLayouts } from "./layout";
 import type { GeneratePdfResult, GeneratePdfParams } from "$lib/types";
 
 // helper
@@ -11,6 +12,7 @@ export const generateOrdersPdf = ({
   const pdfPrinter = new PdfPrinter(fonts);
   const pdfStream = pdfPrinter.createPdfKitDocument(
     pdfModel({ data, pageSize }),
+    { tableLayouts },
   );
 
   try {

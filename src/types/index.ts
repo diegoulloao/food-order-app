@@ -18,8 +18,8 @@ export type GeneratePdfResult = {
 };
 
 export type PdfModelParams = {
-  data: any;
-  pageSize: PageSize;
+  data: Order[];
+  pageSize?: PageSize;
 };
 
 export type GeneratePdfParams = PdfModelParams;

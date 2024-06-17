@@ -1,3 +1,4 @@
+import { supabase } from "$lib/supabase/client";
 import { generateOrdersPdf } from "$lib/factory/pdf";
 import type { APIRoute } from "astro";
 import type { GeneratePdfResult } from "$lib/types";
@@ -7,15 +8,18 @@ export const prerender = false;
 
 // api
 export const GET: APIRoute = async () => {
-  // TODO: fetch data
-
-  const { pdf, error }: GeneratePdfResult = generateOrdersPdf({
-    data: {},
-    pageSize: "LETTER",
-  });
+  const { data, error } = await supabase.from("orders").select();
 
   if (error) {
     return new Response(JSON.stringify(error), { status: 500 });
+  }
+
+  const { pdf, error: pdfError }: GeneratePdfResult = generateOrdersPdf({
+    data,
+  });
+
+  if (pdfError) {
+    return new Response(JSON.stringify(pdfError), { status: 500 });
   }
 
   const fileHash: number = Date.now();

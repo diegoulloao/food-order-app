@@ -11,3 +11,7 @@ export const currency = new Intl.NumberFormat("es-CL", {
   style: "currency",
   currency: "CLP",
 });
+
+export const orderId = (id: number): string => {
+  return "PED-" + (id < 999 ? ("00" + id).slice(-3) : id);
+};
