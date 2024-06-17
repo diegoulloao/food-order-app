@@ -1,9 +1,9 @@
 export const size = {
   header: 22,
   secondary: 15,
-  text: 12,
-  small: 11,
-  tiny: 10,
+  text: 11,
+  small: 10,
+  tiny: 9,
 };
 
 export const color = {

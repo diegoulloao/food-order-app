@@ -1,7 +1,10 @@
 import path from "path";
 import type { TFontFamilyTypes } from "pdfmake/interfaces";
 
-const pathToFonts: string = path.join(process.cwd(), "/public/resources/fonts");
+const pathToFonts: string = path.join(
+  process.cwd(),
+  "/src/factory/pdf/resources/fonts",
+);
 
 const fonts: Record<string, TFontFamilyTypes> = {
   Roboto: {
