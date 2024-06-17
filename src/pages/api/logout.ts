@@ -1,6 +1,7 @@
 import { supabase } from "$lib/supabase/client";
 import type { APIRoute, AstroCookieSetOptions } from "astro";
 
+// on demand
 export const prerender = false;
 
 type AstroCookieDeleteOptions = Omit<
