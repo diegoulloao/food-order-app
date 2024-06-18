@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/**/*.js": {
+    "api/**/*.ts": {
       "includeFiles": "/src/factory/pdf/resources/fonts/*"
     }
   }
