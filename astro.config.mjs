@@ -14,7 +14,12 @@ export default defineConfig({
     }),
   ],
   adapter: vercel({
-    includeFiles: ["./src/factory/pdf/resources/fonts"],
+    includeFiles: [
+      "./src/factory/pdf/resources/fonts/Roboto-Bold.ttf",
+      "./src/factory/pdf/resources/fonts/Roboto-Regular.ttf",
+      "./src/factory/pdf/resources/fonts/Roboto-Italic.ttf",
+      "./src/factory/pdf/resources/fonts/Roboto-BoldItalic.ttf",
+    ],
   }),
   experimental: {
     actions: true,
