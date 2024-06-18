@@ -1,6 +1,6 @@
 {
   "functions": {
-    "pages/api/export.ts": {
+    "pages/api/export.js": {
       "includeFiles": "/src/factory/pdf/resources/fonts/*"
     }
   }
