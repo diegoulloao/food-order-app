@@ -14,7 +14,7 @@ export default defineConfig({
     }),
   ],
   adapter: vercel({
-    includeFiles: ["./src/factory/pdf/resources/fonts/*"],
+    includeFiles: ["./src/factory/pdf/resources/fonts"],
   }),
   experimental: {
     actions: true,
