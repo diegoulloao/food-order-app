@@ -14,7 +14,6 @@ export default defineConfig({
     }),
   ],
   adapter: vercel({
-    functionPerRoute: true,
     includeFiles: [
       "./src/factory/pdf/resources/fonts/Roboto-Bold.ttf",
       "./src/factory/pdf/resources/fonts/Roboto-Regular.ttf",
