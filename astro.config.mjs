@@ -13,7 +13,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
-  adapter: vercel(),
+  adapter: vercel({}),
   experimental: {
     actions: true,
   },

@@ -15,6 +15,9 @@ export const pdfModel = ({
   const total: number = totalUnidades * price;
 
   return {
+    defaultStyle: {
+      font: "Helvetica",
+    },
     header: {
       text: `Actualizado: ${dateTime.format(Date.now()).replace("de ", "")} hrs.`,
       fontSize: size.tiny,
@@ -163,7 +166,7 @@ export const pdfModel = ({
               },
             ],
             ...data.map((d) => [
-              { text: "", color: color.normal },
+              { text: "", color: color.normal, fontSize: size.text },
               {
                 text: orderId(d.id),
                 fontSize: size.small,
@@ -172,16 +175,19 @@ export const pdfModel = ({
               {
                 text: d.amount,
                 color: color.normal,
+                fontSize: size.text,
                 alignment: "center",
               },
               {
                 text: d.name,
                 color: color.normal,
+                fontSize: size.text,
                 bold: true,
               },
               {
                 text: d.cellphone.replace("+56", ""),
                 color: color.normal,
+                fontSize: size.text,
               },
               {
                 text: dateTime
@@ -194,6 +200,7 @@ export const pdfModel = ({
                 text: currency.format(price * d.amount),
                 color: color.normal,
                 bold: true,
+                fontSize: size.text,
                 alignment: "right",
               },
             ]),
