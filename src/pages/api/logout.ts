@@ -28,6 +28,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return new Response(JSON.stringify({ success: false }));
   }
 
+  // NOTE: does this actually work?
   cookies.delete("access_token", deleteOpts);
   cookies.delete("refresh_token", deleteOpts);
 

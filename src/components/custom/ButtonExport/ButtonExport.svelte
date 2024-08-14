@@ -1,20 +1,31 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/button/button.svelte";
   import { Toaster, toast } from "svelte-sonner";
+  import Button from "$lib/components/ui/button/button.svelte";
+  import { cookiesToObj } from "$lib/utils/cookies";
   import { File } from "lucide-svelte/icons";
+  import type { Session } from "@supabase/supabase-js";
 
   // references
   let downloadAnchor: HTMLAnchorElement;
 
   const downloadPdf = async (): Promise<void> => {
+    const { access_token } = cookiesToObj<Pick<Session, "access_token">>(
+      document.cookie,
+    );
+
     try {
-      const response = await fetch("/api/export");
+      const response = await fetch("/api/export", {
+        method: "POST",
+        body: JSON.stringify({ access_token }),
+      });
 
       if (response.status !== 200) {
         const { error } = await response.json();
+
         toast.error("Exportar lista", {
           description: "Lo sentimos, ha habido un problema.",
         });
+
         console.log(error?.message);
         return;
       }
