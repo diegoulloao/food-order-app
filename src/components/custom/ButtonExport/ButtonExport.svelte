@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
+  import { Toaster, toast } from "svelte-sonner";
   import { File } from "lucide-svelte/icons";
 
   // references
@@ -11,10 +12,10 @@
 
       if (response.status !== 200) {
         const { error } = await response.json();
+        toast.error("Exportar lista", {
+          description: "Lo sentimos, ha habido un problema.",
+        });
         console.log(error?.message);
-
-        // TODO: display notification
-
         return;
       }
 
@@ -24,9 +25,12 @@
       downloadAnchor.href = download;
       downloadAnchor.download = "lista.pdf";
       downloadAnchor.click();
-    } catch (e) {
+    } catch (e: any) {
+      toast.error("Exportar lista", {
+        description: "Lo sentimos, ha habido un error.",
+      });
+
       console.log(e);
-      // TODO: display notification
     }
   };
 </script>
@@ -36,4 +40,5 @@
   <span class="sr-only sm:not-sr-only sm:whitespace-nowrap"> Exportar </span>
 </Button>
 
+<Toaster position="top-right" />
 <a class="hidden" bind:this={downloadAnchor} href="#download">.</a>
