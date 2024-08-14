@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
   const { data, error } = await supabase.from("orders").select();
 
   if (error) {
-    return new Response(JSON.stringify(error), { status: 500 });
+    return new Response(JSON.stringify({ error }), { status: 500 });
   }
 
   const { pdf, error: pdfError }: GeneratePdfResult = generateOrdersPdf({
@@ -19,7 +19,7 @@ export const GET: APIRoute = async () => {
   });
 
   if (pdfError) {
-    return new Response(JSON.stringify(pdfError), { status: 500 });
+    return new Response(JSON.stringify({ error: pdfError }), { status: 500 });
   }
 
   const fileHash: number = Date.now();

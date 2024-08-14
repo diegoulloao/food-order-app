@@ -5,6 +5,7 @@
   import type { Task } from "../schemas.js";
   import { DataTableViewOptions } from "./";
   import Button from "$lib/components/ui/button/button.svelte";
+  import { ButtonExport } from "$lib/components/custom";
   import { Input } from "$lib/components/ui/input/index.js";
 
   export let tableModel: TableViewModel<Task>;
@@ -53,6 +54,10 @@
         <Cross2 class="ml-2 h-4 w-4" />
       </Button>
     {/if}
+  </div>
+
+  <div class="ml-auto flex items-center pr-2">
+    <ButtonExport />
   </div>
 
   <DataTableViewOptions {tableModel} />

@@ -4,7 +4,6 @@
   import type { Task } from "../schemas.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-  import { File } from "lucide-svelte/icons";
 
   export let tableModel: TableViewModel<Task>;
   const { pluginStates, flatColumns } = tableModel;
@@ -23,15 +22,6 @@
 </script>
 
 <div class="flex items-center space-x-2">
-  <div class="ml-auto flex items-center gap-2">
-    <Button size="sm" class="h-7 gap-1">
-      <File class="h-3.5 w-3.5" />
-      <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-        Exportar
-      </span>
-    </Button>
-  </div>
-
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button
